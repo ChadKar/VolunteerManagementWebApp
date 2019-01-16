@@ -1,0 +1,189 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="main_visual.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="main_visual.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+            integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+            crossorigin="anonymous"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.7.3/firebase.js"></script>
+
+    <title>Order | Import Volunteers Working</title>
+</head>
+<body onload="expandPanel(), loadOptions()">
+<div style="background-color: #2c5364; width: 100%" >
+<header>
+    <div class="row flex-nowrap justify-content-between align-items-center">
+        <div class="col-4 pt-1">
+        </div>
+        <div class="col-4 text-center">
+            <a class="blog-header-logo ">   <img src="kaibosh_logo_colour.png" width="100%">
+            </a>
+        </div>
+        <div class="col-4 d-flex justify-content-end align-items-center">
+            <a href="#" id="navbar-username" style="margin-right: 20px; color: white">
+            </a>
+            <div id="navbar-button"></div>
+
+        </div>
+    </div>
+</header>
+</div>
+
+<table >
+    <tr>
+        <div>
+            <h1 style="margin-top: 20px">Order</h1>
+        </div>
+    </tr>
+    <tr>
+        <ul>
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong>Holy guacamole!</strong> You should check in on some of those fields below.
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+        </ul>
+    </tr>
+    <tr>
+        <div style="height: 20px; padding: 20px"></div>
+    </tr>
+    <tr>
+        <div class="mainSection">
+            <button class="accordion" id="breadButton">Bread</button>
+            <div class="panel">
+                <input type="radio" name="bread" value="sesame" id="sesame">
+                <h2>Sesame Seed Bun ($8)</h2>
+                <br><br>
+                <input type="radio" name="bread" value="brioche" id="brioche">
+                <h2>Brioche ($10)</h2><br>
+            </div>
+            <button class="accordion" id="pattyButton">Patty</button>
+            <div class="panel">
+                <h2>Beef ($4)</h2>
+                <button class="addSub" onclick="changeQuant('beefPlus')">+</button>
+                <button class="quantity" id="beefQ">0</button>
+                <button class="addSub" onclick="changeQuant('beefSub')">-</button>
+                <br><br>
+                <h2>Chicken ($3)</h2>
+                <button class="addSub" onclick="changeQuant('chickenPlus')">+</button>
+                <button class="quantity" id="chickenQ">0</button>
+                <button class="addSub" onclick="changeQuant('chickenSub')">-</button>
+                <br><br>
+                <h2>Fish ($3)</h2>
+                <button class="addSub" onclick="changeQuant('fishPlus')">+</button>
+                <button class="quantity" id="fishQ">0</button>
+                <button class="addSub" onclick="changeQuant('fishSub')">-</button>
+                <br><br>
+                <h2>Falafel ($2)</h2>
+                <button class="addSub" onclick="changeQuant('falafelPlus')">+</button>
+                <button class="quantity" id="falafelQ">0</button>
+                <button class="addSub" onclick="changeQuant('falafelSub')">-</button>
+                <br>
+            </div>
+            <button class="accordion" id="vegeButton">Vege</button>
+            <div class="panel">
+                <h2>Lettuce ($0)</h2>
+                <button class="addSub" id="lettucePlus" onclick="changeQuant('lettucePlus')">+</button>
+                <button class="quantity" id="lettuceQ">0</button>
+                <button class="addSub" id="lettuceSub" onclick="changeQuant('lettuceSub')">-</button>
+                <br><br>
+                <h2>Tomato ($0)</h2>
+                <button class="addSub" id="tomatoPlus" onclick="changeQuant('tomatoPlus')">+</button>
+                <button class="quantity" id="tomatoQ">0</button>
+                <button class="addSub" id="tomatoSub" onclick="changeQuant('tomatoSub')">-</button>
+                <br><br>
+                <h2>Pickles ($1)</h2>
+                <button class="addSub" id="picklesPlus" onclick="changeQuant('picklesPlus')">+</button>
+                <button class="quantity" id="picklesQ">0</button>
+                <button class="addSub" id="picklesSub" onclick="changeQuant('picklesSub')">-</button>
+                <br><br>
+                <h2>Avocado ($2)</h2>
+                <button class="addSub" id="avocadoPlus" onclick="changeQuant('avocadoPlus')">+</button>
+                <button class="quantity" id="avocadoQ">0</button>
+                <button class="addSub" id="avocadoSub" onclick="changeQuant('avocadoSub')">-</button>
+                <br>
+            </div>
+            <button class="accordion" id="cheeseButton">Cheese</button>
+            <div class="panel">
+                <h2>Cheddar ($1)</h2>
+                <button class="addSub" id="cheddarPlus" onclick="changeQuant('cheddarPlus')">+</button>
+                <button class="quantity" id="cheddarQ">0</button>
+                <button class="addSub" id="cheddarSub" onclick="changeQuant('cheddarSub')">-</button>
+                <br><br>
+                <h2>Camembert ($2)</h2>
+                <button class="addSub" id="camembertPlus" onclick="changeQuant('camembertPlus')">+</button>
+                <button class="quantity" id="camembertQ">0</button>
+                <button class="addSub" id="camembertSub" onclick="changeQuant('camembertSub')">-</button>
+                <br><br>
+                <h2>Halloumi ($1)</h2>
+                <button class="addSub" id="halloumiPlus" onclick="changeQuant('halloumiPlus')">+</button>
+                <button class="quantity" id="halloumiQ">0</button>
+                <button class="addSub" id="halloumiSub" onclick="changeQuant('halloumiSub')">-</button>
+                <br>
+            </div>
+            <button class="accordion" id="sauceButton">Sauces</button>
+            <div class="panel">
+                <input type="checkbox" name="sauce" value="ketchup" id="ketchup">
+                <h2>Ketchup</h2>
+                <br><br>
+                <input type="checkbox" name="sauce" value="mayo" id="mayo">
+                <h2>Mayo</h2>
+                <br><br>
+                <input type="checkbox" name="sauce" value="mustard" id="mustard">
+                <h2>Mustard</h2>
+                <br>
+            </div>
+        </div>
+    </tr>
+    <tr>
+        <p id="price">
+            Price: $0
+        </p>
+    </tr>
+    <tr>
+        <div style="height: 20px; padding: 20px; box-sizing: unset">
+
+        </div>
+    </tr>
+    <tr>
+        <button class="orderButton" style="float: left;">Back</button>
+        <button class="orderButton" style="float:right" id="add" onclick="addOneBurger()">Add To Order</button>
+    </tr>
+    <tr>
+    </tr>
+    <tr>
+        <button class="orderButton" style="float: right" onclick="page()">Complete Order</button>
+    </tr>
+</table>
+<div style="clear: both; color: white;">
+    <p id="orderDetails">
+
+    </p>
+</div>
+</body>
+<script src="order_form.js"></script>
+<script>console.log(localStorage.getItem("user_name"))</script>
+<script>var username = localStorage.getItem("user_name");
+if(username){
+document.getElementById("navbar-username").innerHTML = username;
+document.getElementById("navbar-button").innerHTML = '<a class="btn btn-sm btn-outline-secondary" href="#" onclick="logout()">logout</a>'}
+else {
+    document.getElementById("navbar-button").innerHTML = '<a class="btn btn-sm btn-outline-secondary" href="#" onclick="goToLogin()">login</a>'
+}
+</script>
+<script>function page() {
+    completeOrder();
+    window.location = "payment_page.html";
+}</script>
+</html>

@@ -1,0 +1,159 @@
+body {
+    /*background-image: linear-gradient(to left, #660066, #cc80ff);*/
+    font: 300 1em/1.8 PingFang SC, Lantinghei SC, Microsoft Yahei, Hiragino Sans GB, Microsoft Sans Serif, WenQuanYi Micro Hei, sans;
+    background: #ffffff;
+    min-height: 100vh;
+}
+
+h1 {
+    text-align: center;
+    /*font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;*/
+    font-size: 50px;
+    color: #000000;
+}
+
+h2 {
+    color: #000000;
+    font-weight: lighter;
+    /*font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;*/
+}
+
+.navbar-inner {
+    background: none;
+    background-color: #444;
+    border: none;
+    box-shadow: none;
+    border-radius: 0px;
+    min-height: 40px;
+    padding-right: 20px;
+    padding-left: 20px;
+    font-size: 16px;
+    font-family: 'ZurichBT', sans-serif;
+    text-transform: uppercase;
+    transition: .5s;
+    -webkit-transition: .5s;
+    border: none!important;
+    font-weight: 600;
+    -webkit-font-smoothing: antialiased;
+}
+.accordion {
+    background-color: #dddddd;
+    color: #333333;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    text-align: left;
+    border: none;
+    outline: none;
+    transition: 0.4s;
+    font-size: 14px;
+}
+
+.active, .accordion:hover {
+    background-color: #666666;
+    color: #dddddd;
+}
+
+.panel {
+    padding: 10px;
+    background-color: #333333;
+    display: none;
+    overflow: hidden;
+}
+
+.panel h2 {
+    display: inline;
+}
+
+.panel input{
+    vertical-align: center;
+    margin: 0px;
+}
+
+.orderButton {
+    width: 35%;
+    background-color: #dddddd;
+    color: #333333;
+    cursor: pointer;
+    padding: 10px;
+    text-align: center;
+    border: none;
+    outline: none;
+    transition: 0.4s;
+    font-size: 14px;
+}
+
+.orderButton:hover {
+    background-color: #666666;
+    color: #dddddd;
+}
+
+#price {
+    margin: 5px;
+    font-size: 24px;
+    float: right;
+    color: #dddddd;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.addSub {
+    height: 35px;
+    width: 35px;
+    background-color: #dddddd;
+    color: #333333;
+    border: none;
+    outline: none;
+    text-align: center;
+    cursor: pointer;
+    font-size: 14px;
+    float: right;
+}
+
+
+.addSub:active {
+    background-color: #aaaaaa;
+}
+
+.quantity {
+    height: 35px;
+    width: 35px;
+    background-color: #dddddd;
+    color: #333333;
+    border: none;
+    outline: none;
+    text-align: center;
+    cursor: pointer;
+    font-size: 14px;
+    float: right;
+    margin-left: 1px;
+    margin-right: 1px;
+}
+
+
+.login-form {
+    width: 100%;
+    max-width: 330px;
+    padding: 15px;
+    margin: auto;
+}
+
+.align-right {
+    text-align: right;
+}
+
+.white-color {
+    color: white;
+}
+
+.x {
+    display: none;
+}
+
+#paymentForm {
+    padding-top: 30px;
+}
+
+#paymentButton {
+    
+}
+
