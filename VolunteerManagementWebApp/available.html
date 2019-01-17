@@ -15,7 +15,7 @@
             integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
             crossorigin="anonymous"></script>
     <!-- Firebase App is always required and must be first -->
-    <script src="https://www.gstatic.com/firebasejs/5.5.7/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.7.3/firebase-app.js"></script>
 
     <!-- Add additional services that you want to use -->
     <script src="https://www.gstatic.com/firebasejs/5.5.7/firebase-auth.js"></script>
@@ -30,6 +30,7 @@
 
     <title>Availability | Kaibosh</title>
 </head>
+<body>
 <div style="background-color: ffffff; width: 100%">
 <header>
     <div class="row flex-nowrap justify-content-between align-items-center">
@@ -40,8 +41,9 @@
             </a>
         </div>
         <div class="col-4 d-flex justify-content-end align-items-center">
-            <a href="#" id="navbar-username" style="margin-right: 20px; color: black">Ben Smith</a>
-            <div id="navbar-button"><a class="btn btn-sm btn-outline-secondary" href="#" onclick="logout()">logout</a></div>
+            <a href="#" id="navbar-username" style="margin-right: 20px; color: black">
+            </a>
+            <div id="navbar-button"></div>
 
         </div>
     </div>
@@ -50,7 +52,7 @@
 </div>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">Kaibosh Manager</a>
+  <a class="navbar-brand" href="#">Manager Actions:</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -84,8 +86,18 @@
   </div>
 </nav>
 <ul></ul>
-    <h1 style="text-align: center;" id=LoginHeading>Availability</h1>
+    <h1 style="text-align: center;" id=followUpHeading>Availability</h1>
 
 </body>
-<script src="register_script.js"></script>
+
+<script>console.log(localStorage.getItem("user_name"))</script>
+<script>var username = localStorage.getItem("user_name");
+if(username){
+document.getElementById("navbar-username").innerHTML = username;
+document.getElementById("navbar-button").innerHTML = '<a class="btn btn-sm btn-outline-secondary" href="#" onclick="logout()">logout</a>'}
+else {
+    document.getElementById("navbar-button").innerHTML = '<a class="btn btn-sm btn-outline-secondary" href="#" onclick="goToLogin()">login</a>'
+}
+</script>
+<script src="available.js"></script>
 </html>
