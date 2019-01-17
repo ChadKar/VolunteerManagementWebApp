@@ -57,6 +57,35 @@ function checkFields() {
         document.getElementById("phoneEntry").style.background = colourbackground;
          okay = false;
     }
+    if(document.getElementById("addL1Entry").value === "") {
+        document.getElementById("addL1Entry").style.background = colourbackground;
+         okay = false;
+    }
+    if(document.getElementById("addL2Entry").value === "") {
+        document.getElementById("addL2Entry").style.background = colourbackground;
+         okay = false;
+    }
+    if(document.getElementById("districtEntry").value === "") {
+        document.getElementById("districtEntry").style.background = colourbackground;
+         okay = false;
+    }
+    if(document.getElementById("pcodeEntry").value === "") {
+        document.getElementById("pcodeEntry").style.background = colourbackground;
+         okay = false;
+    }
+    if(document.getElementById("emPhEntry").value === "") {
+        document.getElementById("emPhEntry").style.background = colourbackground;
+         okay = false;
+    }
+    if(document.getElementById("emNameEntry").value === "") {
+        document.getElementById("emNameEntry").style.background = colourbackground;
+         okay = false;
+    }
+    if(document.getElementById("emRelEntry").value === "") {
+        document.getElementById("emRelEntry").style.background = colourbackground;
+         okay = false;
+    }
+
     if(document.getElementById("passwordEntry").value === "") {
         document.getElementById("passwordEntry").style.background = colourbackground;
          okay = false;
@@ -68,12 +97,12 @@ function checkFields() {
     console.log("Print:" + okay);
     if(okay === true) {
         console.log("parameters called");
-        checkPassowrdEquals();
+        checkPasswordEquals();
     }
    
 }
 
-function checkPassowrdEquals() {
+function checkPasswordEquals() {
     var check = false;
     var pass1 = document.getElementById("passwordEntry").value.trim();
     var pass2 = document.getElementById("passwordEntry2").value.trim();
@@ -92,18 +121,28 @@ function getParameters() {
     var dob = document.getElementById("dobEntry").value.trim();
     var phone = document.getElementById("phoneEntry").value.trim();
     var password = document.getElementById("passwordEntry").value.trim();
-    var password2 = document.getElementById("passwordEntry2").value.trim()
-    console.log(firstname + "," + lastname + ", " + email + ", " + dob + ", " + phone + ", " + password);
+    var password2 = document.getElementById("passwordEntry2").value.trim();
+    var addL1 = document.getElementById("addL1Entry").value.trim();
+    var addL2 = document.getElementById("addL2Entry").value.trim();
+    var district = document.getElementById("districtEntry").value.trim();
+    var pcode = document.getElementById("pcodeEntry").value.trim();
+    var emPhEntry = document.getElementById("emPhEntry").value.trim();
+    var emName = document.getElementById("emNameEntry").value.trim();
+    var emRel = document.getElementById("emRelEntry").value.trim();
+    console.log(firstname + "," + lastname + ", " + email + ", " + dob + ", " + phone + ", " + password + "," + addL1 + "," + addL2 + ", " + district + ", " + pcode + ", " + emPhEntry + ", " + emName + ", " +  emRel);
     checkUserExists();
 }
 
-function addUser(em, birth, usern, namE, pass, ph) {
-  firebase.database().ref('/customer/' + usern).set({
+function addUser(em, birth, usern, namE, pass, ph, addL1, addL2, district, pcode, emPh, emName, emRel) {
+  firebase.database().ref('/manager/' + usern).set({
+   // address:{district: district, line1: addL1, line2: addL2, postcode: pcode},//not sure on syntax
     dob: birth,
     email: em,
+    emergency:{phone: emPh, name: emName, relationship: emRel},//not sure on syntax
     name: namE,
     password: pass,
-    phone: ph
+    phone: ph,
+    status: active //note this is added because want to set so can get into log-in which ha condition
   });
     console.log("User Added");
 }
@@ -117,6 +156,13 @@ function checkUserExists() {
     var dob = document.getElementById("dobEntry").value.trim();
     var phone = document.getElementById("phoneEntry").value.trim();
     var password = document.getElementById("passwordEntry").value.trim();
+    var addL1 = document.getElementById("addL1Entry").value.trim();
+    var addL2 = document.getElementById("addL2Entry").value.trim();
+    var district = document.getElementById("districtEntry").value.trim();
+    var pcode = document.getElementById("pcodeEntry").value.trim();
+    var emPh = "0579790";//document.getElementById("emPhEntry").value.trim();
+    var emName = document.getElementById("emNameEntry").value.trim();
+    var emRel = document.getElementById("emRelEntry").value.trim();
     var Name = firstname + " " + lastname;
     var enteredEmail = document.getElementById("regemailEntry").value, user = enteredEmail.split("@"), ending = user[1];
     var myStr = ending;
@@ -124,10 +170,10 @@ function checkUserExists() {
     var username = user[0] + "@" + newStr;
     console.log("This is true username: " + username);
     
-     database.ref('/customer/' + username).once("value").then(function (data) {
+     database.ref('/manager/' + username).once("value").then(function (data) {
         if (data.val() === null) {
             console.log("No Account exists with this email address");
-            addUser(enteredEmail, dob, username, Name, password, phone);
+            addUser(enteredEmail, dob, username, Name, password, phone, addL1, addL2, district, pcode, emPh, emName, emRel);
             window.location = "login.html";
         }
          else {
@@ -144,7 +190,7 @@ function getUserData() {
     event.preventDefault();
     // get email string into username
     var enteredEmail = document.getElementById("emailEntry").value, enteredPassword = document.getElementById("passwordEntry").value, user = enteredEmail.split("@"), username = user[0];
-    database.ref('/customer/' + username).once("value").then(function (data) {
+    database.ref('/manager/' + username).once("value").then(function (data) {
         if (data.val() === null) {
             console.log("No Account exists with this email address");
             document.getElementById("loginFeedback").innerHTML = "No Account exists with this email address";
