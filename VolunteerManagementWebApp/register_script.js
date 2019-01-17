@@ -6,10 +6,10 @@ var config = {
     storageBucket: "stackover-burger.appspot.com",
     messagingSenderId: "359154422713"
 };
-        
+
 firebase.initializeApp(config);
 var database = firebase.database();
-  
+
 function checkFields() {
     var colourbackground = "#d5cdf3";
     console.log("Clicked register");
@@ -28,7 +28,7 @@ function checkFields() {
     if(document.getElementById("regemailEntry").value === "") {
         document.getElementById("regemailEntry").style.background = colourbackground;
          okay = false;
-    }    
+    }
     if(document.getElementById("dobEntry").value === "") {
         document.getElementById("dobEntry").style.background = colourbackground;
          okay = false;
@@ -50,7 +50,7 @@ function checkFields() {
         console.log("parameters called");
         checkPassowrdEquals();
     }
-   
+
 }
 
 function checkPassowrdEquals() {
@@ -91,7 +91,7 @@ function addUser(em, birth, usern, namE, pass, ph) {
 
 function checkUserExists() {
     console.log("CheckUserExists called");
-    
+
     var firstname = document.getElementById("firstNameEntry").value.trim();
     var lastname = document.getElementById("lastNameEntry").value.trim();
     var dob = document.getElementById("dobEntry").value.trim();
@@ -103,7 +103,7 @@ function checkUserExists() {
     var newStr = myStr.replace(".", "~");
     var username = user[0] + "@" + newStr;
     console.log("This is true username: " + username);
-    
+
      database.ref('/customer/' + username).once("value").then(function (data) {
         if (data.val() === null) {
             console.log("No Account exists with this email address");
@@ -117,7 +117,7 @@ function checkUserExists() {
          }
         })
 }
-    
+
 
 function getUserData() {
     "use strict";
