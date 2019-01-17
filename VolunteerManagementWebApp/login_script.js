@@ -32,7 +32,7 @@ function getUserData() {
                 localStorage.setItem("user_email", data.val().email);
                 localStorage.setItem("user_name", data.val().name);
                 //localStorage.setItem("", );
-                window.location = "chooseAction.html";
+                window.location = "followUp.html";
             } else {
                 console.log("Please try again. Invalid email and password combination.");
             	alert("Please try again. Invalid email and password combination.");
