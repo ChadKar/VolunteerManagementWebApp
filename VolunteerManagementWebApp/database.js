@@ -6,3 +6,7 @@
     storageBucket: "volunteer-management-20853.appspot.com",
     messagingSenderId: "574062360222"
  };
+
+   
+firebase.initializeApp(config);
+var database = firebase.database();

@@ -1,11 +1,11 @@
-var config = {
-    apiKey: "AIzaSyCPvM0PidSAxE5ev5iNGl7qfbVj5vK4zv8",
-    authDomain: "stackover-burger.firebaseapp.com",
-    databaseURL: "https://stackover-burger.firebaseio.com",
-    projectId: "stackover-burger",
-    storageBucket: "stackover-burger.appspot.com",
-    messagingSenderId: "359154422713"
-};
+ var config = {
+    apiKey: "AIzaSyAefGkmEiYGdjYTspccWr2zA_ilYOwfQxU",
+    authDomain: "volunteer-management-20853.firebaseapp.com",
+    databaseURL: "https://volunteer-management-20853.firebaseio.com",
+    projectId: "volunteer-management-20853",
+    storageBucket: "volunteer-management-20853.appspot.com",
+    messagingSenderId: "574062360222"
+ };
 firebase.initializeApp(config);
 var database = firebase.database();
 
