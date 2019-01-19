@@ -1,4 +1,3 @@
-
  var config = {
     apiKey: "AIzaSyAefGkmEiYGdjYTspccWr2zA_ilYOwfQxU",
     authDomain: "volunteer-management-20853.firebaseapp.com",
@@ -30,4 +29,4 @@ function goToLogin() {
     window.location = "login.html";
 }
 
-
+ 
