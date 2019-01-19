@@ -92,12 +92,14 @@ function checkFields() {
     }
     if(document.getElementById("passwordEntry2").value === "") {
         document.getElementById("passwordEntry2").style.background = colourbackground;
-         okay = true;
+         okay = false;
     }
     console.log("Print:" + okay);
     if(okay === true) {
         console.log("parameters called");
         checkPasswordEquals();
+    }else if(okay === false){
+        alert("Please check all fields are complete and try again.");
     }
    
 }
@@ -133,18 +135,20 @@ function getParameters() {
     checkUserExists();
 }
 
-function addUser(em, birth, usern, namE, pass, ph, /*addL1, addL2, district, pcode, emPh, emName, emRel*/) {
-  firebase.database().ref('/manager/' + usern).set({
-   // address:{district: district, line1: addL1, line2: addL2, postcode: pcode},//not sure on syntax
+function addUser(em, birth, usern, namE, pass, ph, addL1, addL2, district, pcode, emPh, emName, emRel) {
+    var active = "active";
+    firebase.database().ref('/manager/' + usern).set({
+    address:{district: district, line1: addL1, line2: addL2, postcode: pcode},//not sure on syntax
     dob: birth,
     email: em,
-    //emergency:{phone: emPh, name: emName, relationship: emRel},//not sure on syntax
+    emergency:{phone: emPh, name: emName, relationship: emRel},//not sure on syntax
     name: namE,
     password: pass,
     phone: ph,
-    //status: active //note this is added because want to set so can get into log-in which ha condition
+    status: active //note this is added because want to set so can get into log-in which ha condition
   });
     console.log("User Added");
+    
 }
 
 
@@ -156,13 +160,13 @@ function checkUserExists() {
     var dob = document.getElementById("dobEntry").value.trim();
     var phone = document.getElementById("phoneEntry").value.trim();
     var password = document.getElementById("passwordEntry").value.trim();
-    // var addL1 = document.getElementById("addL1Entry").value.trim();
-    // var addL2 = document.getElementById("addL2Entry").value.trim();
-    // var district = document.getElementById("districtEntry").value.trim();
-    // var pcode = document.getElementById("pcodeEntry").value.trim();
-    // var emPhone = document.getElementById("emPhEntry").value.trim();
-    // var emName = document.getElementById("emNameEntry").value.trim();
-    // var emRel = document.getElementById("emRelEntry").value.trim();
+    var addL1 = document.getElementById("addL1Entry").value.trim();
+    var addL2 = document.getElementById("addL2Entry").value.trim();
+    var district = document.getElementById("districtEntry").value.trim();
+    var pcode = document.getElementById("pcodeEntry").value.trim();
+    var emPhone = document.getElementById("emPhEntry").value.trim();
+    var emName = document.getElementById("emNameEntry").value.trim();
+    var emRel = document.getElementById("emRelEntry").value.trim();
     var Name = firstname + " " + lastname;
     var enteredEmail = document.getElementById("regemailEntry").value, user = enteredEmail.split("@"), ending = user[1];
     var myStr = ending;
@@ -173,8 +177,9 @@ function checkUserExists() {
      database.ref('/manager/' + username).once("value").then(function (data) {
         if (data.val() === null) {
             console.log("No Account exists with this email address");
-            addUser(enteredEmail, dob, username, Name, password, phone,/* addL1, addL2, district, pcode, emPhone, emName, emRel*/);
-            window.location = "login.html";
+            addUser(enteredEmail, dob, username, Name, password, phone, addL1, addL2, district, pcode, emPhone, emName, emRel);
+            window.location = "register.html";
+            alert("New manager succesfully created. Try going to login page to test login.");
         }
          else {
              console.log("Account Exists");
