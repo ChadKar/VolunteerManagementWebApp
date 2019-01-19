@@ -82,17 +82,21 @@ function getParameters() {
     var password = document.getElementById("passwordEntry").value.trim();
     var password2 = document.getElementById("passwordEntry2").value.trim();
    
-    console.log(firstname + ", " + email + ", " + password );
+    console.log(firstname + ", " + email + ", " + password );//to get the data 
     addUser(firstname, password, email);
+    database.ref('/manager/' + firstname).once("value").then(function (data) {
+        console.log("FOUND IT YAYYYYYYYY+>    " + data.val().email +"  "+ firstname);
+    });//to get the 
+    printDbValues()
     //checkUserExists();
 }
 
-function addUser(namE, pass,email) {
-  firebase.database().ref('/manager/').set({
+function addUser(namE, pass,email) {// to write in the node 3 children
+  firebase.database().ref('/manager/' + namE).set({
     email: email,
     name: namE,
     password: pass,
-
+   
   });
     console.log("User Added");
 }
@@ -141,16 +145,20 @@ function getUserData() {
     // get email string into username
     var enteredEmail = document.getElementById("emailEntry").value, enteredPassword = document.getElementById("passwordEntry").value, user = enteredEmail.split("@"), username = user[0];
     database.ref('/manager/' + name).once("value").then(function (data) {
-        if (data.val() === null) {
-            console.log("No Account exists with this email address");
-            document.getElementById("loginFeedback").innerHTML = "No Account exists with this email address";
-        } else {
-            var realEm = (data.val().email), realPass = (data.val().password);
-            if ((realEm === enteredEmail) && (realPass === enteredPassword)) {
-                window.location = "register.html";
-            } else {
-                window.document.getElementById("loginFeedback").innerHTML = "Something didnt match";
-            }
-        }
+        console.log(data.value().email);
     });
+    }
+    
+    
+function printDbValues() {
+	var ref = firebase.database().ref('/manager/');
+
+	ref.once('value', function(snapshot) {
+	  snapshot.forEach(function(childSnapshot) {
+	    var childKey = childSnapshot.key;
+	    var childData = childSnapshot.val();
+	    //$scope.foo[childKey] = childData;
+	    console.log(childData.name + " - " + childData.email );
+	  });
+	});
 }
