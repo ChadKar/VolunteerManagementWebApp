@@ -9,6 +9,26 @@
         
 firebase.initializeApp(config);
 var database = firebase.database();
+
+
+function setButtons(){
+    document.getElementById("add").addEventListener("click", function(){
+
+    });
+}
+
+
+function logout() {
+    event.preventDefault();
+    console.log(localStorage.getItem("user_email"));
+    localStorage.clear();
+    window.location = "login.html";
+}
+
+function goToLogin() {
+    event.preventDefault();
+    window.location = "login.html";
+}
   
 function checkFields() {
     var colourbackground = "#d5cdf3";
@@ -121,6 +141,7 @@ function addUser(em, birth, usern, namE, pass, ph, addL1, addL2, district, pcode
     address:{district: district, line1: addL1, line2: addL2, postcode: pcode},//not sure on syntax
     dob: birth,
     email: em,
+    emergency:{phone: emPh, name: emName, relationship: emRel},//not sure on syntax
     name: namE,
     password: pass,
     phone: ph,

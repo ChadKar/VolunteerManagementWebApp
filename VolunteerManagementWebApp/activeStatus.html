@@ -28,7 +28,7 @@
         $('[data-toggle="tooltip"]').tooltip()
     })</script>
 
-    <title>Add Records | Kaibosh</title>
+    <title>Active Status | Kaibosh</title>
 </head>
 <body>
 <div style="background-color: ffffff; width: 100%">
@@ -69,10 +69,10 @@
       <li class="nav-item">
         <a class="nav-link" href="available.html">Availability</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item active">
         <a class="nav-link" href="activeStatus.html">Active Status</a>
       </li>
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="import.html">Add Records</a><!-- Import Page -->
       </li>
       <li class="nav-item">
@@ -86,7 +86,7 @@
   </div>
 </nav>
 <ul></ul>
-    <h1 style="text-align: center;" id=importHeading>Add Records</h1>
+    <h1 style="text-align: center;" id=activeStatusHeading>Active Status</h1>
 
 </body>
 
@@ -99,5 +99,5 @@ else {
     document.getElementById("navbar-button").innerHTML = '<a class="btn btn-sm btn-outline-secondary" href="#" onclick="goToLogin()">login</a>'
 }
 </script>
-<script src="import.js"></script>
+<script src="activeStatus.js"></script>
 </html>
