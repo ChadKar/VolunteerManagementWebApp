@@ -49,20 +49,20 @@ function checkRecordFields() {
         document.getElementById("roleEntry").style.background = colourbackground;
          okay = false;
     }    
-    if(document.getElementById("schedStartEntry").value === "") {
-        document.getElementById("schedStartEntry").style.background = colourbackground;
+    if(document.getElementById("schedDateStartEntry").value === "") {
+        document.getElementById("schedDateStartEntry").style.background = colourbackground;
          okay = false;
     }
-    if(document.getElementById("schedEndEntry").value === "") {
-        document.getElementById("schedEndEntry").style.background = colourbackground;
+    if(document.getElementById("schedTimeStartEntry").value === "") {
+        document.getElementById("schedTimeStartEntry").style.background = colourbackground;
          okay = false;
     }
-    if(document.getElementById("signInEntry").value === "") {
-        document.getElementById("signInEntry").style.background = colourbackground;
+    if(document.getElementById("schedDateEndEntry").value === "") {
+        document.getElementById("schedDateEndEntry").style.background = colourbackground;
          okay = false;
     }
-    if(document.getElementById("signOutEntry").value === "") {
-        document.getElementById("signOutEntry").style.background = colourbackground;
+    if(document.getElementById("schedTimeEndEntry").value === "") {
+        document.getElementById("schedTimeEndEntry").style.background = colourbackground;
          okay = false;
     }
     if(document.getElementById("addLoc1Entry").value === "") {
@@ -81,11 +81,6 @@ function checkRecordFields() {
         document.getElementById("locPcodeEntry").style.background = colourbackground;
          okay = false;
     }
-    if(document.getElementById("statusEntry").value === "") {
-        document.getElementById("statusEntry").style.background = colourbackground;
-         okay = false;
-    }
-
     console.log("Print:" + okay);
     if(okay === true) {
         console.log("parameters called");
@@ -96,50 +91,55 @@ function checkRecordFields() {
    
 }
 
-function checkPasswordEquals() {
-    var check = false;
-    var pass1 = document.getElementById("passwordEntry").value.trim();
-    var pass2 = document.getElementById("passwordEntry2").value.trim();
-    if(pass1 === pass2) {
-        check = true;
-        console.log("passwords equal");
-        getRecordParameters();
-    }
-}
-
 function getRecordParameters() {
     console.log("getParameters called");
     var firstname = document.getElementById("firstNameEntry").value.trim();
     var lastname = document.getElementById("lastNameEntry").value.trim();
-    var email = document.getElementById("regemailEntry").value.trim();
-    var dob = document.getElementById("dobEntry").value.trim();
-    var phone = document.getElementById("phoneEntry").value.trim();
-    var password = document.getElementById("passwordEntry").value.trim();
-    var password2 = document.getElementById("passwordEntry2").value.trim();
-    var addL1 = document.getElementById("addL1Entry").value.trim();
-    var addL2 = document.getElementById("addL2Entry").value.trim();
-    var district = document.getElementById("districtEntry").value.trim();
-    var pcode = document.getElementById("pcodeEntry").value.trim();
-    var emPhEntry = document.getElementById("emPhEntry").value.trim();
-    var emName = document.getElementById("emNameEntry").value.trim();
-    var emRel = document.getElementById("emRelEntry").value.trim();
-    console.log(firstname + "," + lastname + ", " + email + ", " + dob + ", " + phone + ", " + password + "," + addL1 + "," + addL2 + ", " + district + ", " + pcode + ", " + emPhEntry + ", " + emName + ", " +  emRel);
-    checkUserExists();
+    var email = document.getElementById("emailEntry").value.trim();
+    var role = document.getElementById("roleEntry").value.trim();
+    var schedDateStart = document.getElementById("schedDateStartEntry").value.trim();
+    var schedTimeStart = document.getElementById("schedTimeStartEntry").value.trim();
+    var schedDateEnd = document.getElementById("schedDateEndEntry").value.trim();
+    var schedTimeEnd = document.getElementById("schedTimeEndEntry").value.trim();
+    var locAddL1 = document.getElementById("addLoc1Entry").value.trim();
+    var locAddL2 = document.getElementById("addLoc2Entry").value.trim();
+    var locDistrict = document.getElementById("locDistrictEntry").value.trim();
+    var locPcode = document.getElementById("locPcodeEntry").value.trim();
+    
+    console.log(firstname + "," + lastname + ", " + email+ ", "+ role + ", " + schedDateStart + ", " + schedTimeStart+", "+ schedDateEnd+", "+ schedTimeEnd + "," + locAddL1 + ", " + locAddL2 + ", " +locDistrict  + ", " +locPcode);
+   // checkUserExists();
 }
 
-function addUser(em, birth, usern, namE, pass, ph, addL1, addL2, district, pcode, emPh, emName, emRel) {
-    var active = "active";
-    firebase.database().ref('/manager/' + usern).set({
-    address:{district: district, line1: addL1, line2: addL2, postcode: pcode},//not sure on syntax
-    dob: birth,
-    email: em,
-    emergency:{phone: emPh, name: emName, relationship: emRel},//not sure on syntax
-    name: namE,
-    password: pass,
-    phone: ph,
-    status: active //note this is added because want to set so can get into log-in which ha condition
-  });
-    console.log("User Added");
+function addRecord(volunteerName, username, role, schedStart, schedEnd, locAddL1, locAddL2, locDistrict, locPcode) {
+    var recordStatus = "incomplete";
+    var creationTime = new Date().getTime();
+    var signIn = null;
+    var signOut = null;
+    var duration = 0;
+// got to create and get the record reference here e.g. record34.
+    var lastRef = database.ref('/record/').orderByChild('creationTime').limitToLast(1);
+    lastRef.on("value", function(data){
+        var recordObject = data.val();
+        console.log(recordObject);//record3
+    })
+
+  //   var recordNum = 
+
+  //   firebase.database().ref('/record/' + recordNum).set({
+
+  //   creationTime: creationTime,
+  //   duration: duration,        
+  //   locationAddress:{locDistrict: locDistrict, locLine1: locAddL1, locLine2: locAddL2, locPostcode: locPcode},//not sure on syntax
+  //   name: volunteerName,
+  //   role: role,
+  //   scheduleEnd: schedEnd,
+  //   scheduleStart: schedStart,
+  //   signIn: signIn,
+  //   signOut: signOut,
+  //   status: recordStatus, //"incomplete"
+  //   volunteerID: username
+  // });
+    console.log("Record Added");
     
 }
 
@@ -149,55 +149,62 @@ function checkUserExists() {
     
     var firstname = document.getElementById("firstNameEntry").value.trim();
     var lastname = document.getElementById("lastNameEntry").value.trim();
-    var dob = document.getElementById("dobEntry").value.trim();
-    var phone = document.getElementById("phoneEntry").value.trim();
-    var password = document.getElementById("passwordEntry").value.trim();
-    var addL1 = document.getElementById("addL1Entry").value.trim();
-    var addL2 = document.getElementById("addL2Entry").value.trim();
-    var district = document.getElementById("districtEntry").value.trim();
-    var pcode = document.getElementById("pcodeEntry").value.trim();
-    var emPhone = document.getElementById("emPhEntry").value.trim();
-    var emName = document.getElementById("emNameEntry").value.trim();
-    var emRel = document.getElementById("emRelEntry").value.trim();
-    var Name = firstname + " " + lastname;
-    var enteredEmail = document.getElementById("regemailEntry").value, user = enteredEmail.split("@"), ending = user[1];
+    var email = document.getElementById("emailEntry").value.trim();
+    var role = document.getElementById("roleEntry").value.trim();
+    var schedStart = document.getElementById("schedStartEntry").value.trim();
+    var schedEnd = document.getElementById("schedEndEntry").value.trim();
+    var locAddL1 = document.getElementById("addLoc1Entry").value.trim();
+    var locAddL2 = document.getElementById("addLoc2Entry").value.trim();
+    var locDistrict = document.getElementById("locDistrictEntry").value.trim();
+    var locPcode = document.getElementById("locPcodeEntry").value.trim();
+    var volunteerName = firstname + " " + lastname;
+
+
+//Need to calculate timestamps for schedule start and schedul end to put into the code. Do quick check that end timestamp is greater than start timestamp.
+//new Date(year, month, day, hours, minutes, seconds, milliseconds)
+//var dateFromPicker = "2012-10-12";
+// var timeFromPicker = "12:30";
+var dateFromUI = "12-13-2012";
+var timeFromUI = "10:20";
+var dateParts = dateFromUI.split("-");
+var timeParts = timefromUI.split(":");
+
+var date = new Date(dateParts[2], dateParts[0]-1, dateParts[1], timeParts[0], timeParts[1]);
+
+var dateISO = date.toISOString();
+// var dateParts = dateFromPicker.split("-");
+// var timeParts = timeFromPicker.split(":");
+// var localDate = new Date(dateParts[0], dateParts[1]-1, dateParts[2], timeParts[0], timeParts[1]);
+//     var calc = document.getElementById("calc")
+
+// calc.addEventListener("click", function() {
+//     var date = document.getElementById("date").value,
+//         time = document.getElementById("time").value
+    
+//     console.log(new Date(date + " " + time))
+// })
+
+
+    var user = email.split("@"), ending = user[1];
     var myStr = ending;
     var newStr = myStr.replace(".", "~");
     var username = user[0] + "@" + newStr;
     console.log("This is true username: " + username);
     
-     database.ref('/manager/' + username).once("value").then(function (data) {
+     database.ref('/volunteer/' + username).once("value").then(function (data) {
         if (data.val() === null) {
             console.log("No Account exists with this email address");
-            addUser(enteredEmail, dob, username, Name, password, phone, addL1, addL2, district, pcode, emPhone, emName, emRel);
-            window.location = "register.html";
-            alert("New manager succesfully created. Try going to login page to test login.");
+            alert("No account exists associated with this email address. You need to create a new volunteer before a record can be created.");
+            window.location = "addRecord.html";
+            
         }
          else {
              console.log("Account Exists");
-             alert("An account already exists associated with this email address");
+              addRecord(volunteerName, username, role, schedStart, schedEnd, locAddL1, locAddL2, locDistrict, locPcode);
+             
+             alert("New record succesfully created. Details are as follows: name = "+ firstname +" "+ lastname + ", email = " + email+ ", role = "+ role + ", scheduleStart = " + schedStart + ", scheduleEnd" + schedEnd + ", location address = " + addLoc1Entry + ", " + addLoc2Entry + ", " +locDistrict  + ", " +locPcode);
             //document.getElementById("loginFeedback").innerHTML = "An account already exists associated with this email address";
          }
         })
 }
     
-
-function getUserData() {
-    "use strict";
-    event.preventDefault();
-    // get email string into username
-    var enteredEmail = document.getElementById("emailEntry").value, enteredPassword = document.getElementById("passwordEntry").value, user = enteredEmail.split("@"), username = user[0];
-    database.ref('/manager/' + username).once("value").then(function (data) {
-        if (data.val() === null) {
-            console.log("No Account exists with this email address");
-            document.getElementById("loginFeedback").innerHTML = "No Account exists with this email address";
-        } else {
-            var realEm = (data.val().email), realPass = (data.val().password);
-            if ((realEm === enteredEmail) && (realPass === enteredPassword)) {
-                window.location = "register.html";
-            } else {
-                window.document.getElementById("loginFeedback").innerHTML = "Something didnt match";
-            }
-        }
-    });
-}
