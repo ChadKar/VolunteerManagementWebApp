@@ -27,7 +27,7 @@ function logout() {
 
 function goToLogin() {
     event.preventDefault();
-    window.location = "login.html";
+    window.location = "login.html"; 
 }
 
 function checkFields() {
