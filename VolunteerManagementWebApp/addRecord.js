@@ -110,36 +110,40 @@ function getRecordParameters() {
     checkUserExists();
 }
 
-function addRecord(volunteerName, username, role, schedTimestampStart, schedTimestampEnd, locAddL1, locAddL2, locDistrict, locPcode) {
+function addRecord(volunteerName, volunteerID, role, schedTimestampStart, schedTimestampEnd, defaultTimestamp, locAddL1, locAddL2, locDistrict, locPcode) {
     var recordStatus = "incomplete";
     var creationTime = new Date().getTime();
-    var signIn = null;
-    var signOut = null;
     var duration = 0;
-// got to create and get the record reference here e.g. record34.
+    var recordNum; 
+    // Go to last reference on creation creationTime. Get the key of creationTime.
     var lastRef = database.ref('/record/').orderByChild('creationTime').limitToLast(1);
     lastRef.on("value", function(data){
-        var recordObject = data.val();
-        console.log(recordObject);//record3
+        var recordObject = data.val();//e.g. {record3: {…}}
+        console.log(recordObject);//{record3: {…}}
+        for(var key in recordObject) {
+            lastRecordNum = parseInt(key.split("d")[1]);//3
+            recordNum = lastRecordNum + 1;//4
+            console.log("recordNum = "+ recordNum+", prev="+ lastRecordNum);//4
+        }
     })
+    var stringNum = recordNum.toString();
+    var recordID = "record"+stringNum;
 
-  //   var recordNum = 
+    firebase.database().ref('/record/' + recordID).set({
 
-  //   firebase.database().ref('/record/' + recordNum).set({
-
-  //   creationTime: creationTime,
-  //   duration: duration,        
-  //   locationAddress:{locDistrict: locDistrict, locLine1: locAddL1, locLine2: locAddL2, locPostcode: locPcode},//not sure on syntax
-  //   name: volunteerName,
-  //   role: role,
-  //   scheduleEnd: schedEnd,
-  //   scheduleStart: schedStart,
-  //   signIn: signIn,
-  //   signOut: signOut,
-  //   status: recordStatus, //"incomplete"
-  //   volunteerID: username
-  // });
-    console.log("Record Added");
+    creationTime: creationTime,
+    duration: duration,        
+    locationAddress:{locDistrict: locDistrict, locLine1: locAddL1, locLine2: locAddL2, locPostcode: locPcode},
+    name: volunteerName,
+    role: role,
+    scheduleEnd: schedTimestampEnd,
+    scheduleStart: schedTimestampStart,
+    signIn: defaultTimestamp,
+    signOut: defaultTimestamp,
+    status: recordStatus, //"incomplete"
+    volunteerID: volunteerID
+  });
+    console.log("New Record Added");
     
 }
 
@@ -181,32 +185,38 @@ function checkUserExists() {
     var sEndDateObject = new Date(date2Parts[0], date2Parts[1], date2Parts[2], time2Parts[0], time2Parts[1], 0);
     var schedTimestampEnd = sEndDateObject.getTime();  
 
+    //Getting default timestamp from date of time stamp 2 (for actual start/end times which will be overwritten).
+    //new Date(year, month, day, hours, minutes, seconds) e.g. var date = new Date(2016, 6, 27, 13, 30, 0);
+    var defaultDate = new Date(date2Parts[0], date2Parts[1], date2Parts[2], 23, 59, 0);
+    var defaultTimestamp = defaultDate.getTime(); 
+
+    //Checking valid time range for a record to be made.
     if(schedTimestampEnd>schedTimestampStart){
         console.log("Correct timestamps.");
-
-
-
-
-    }else{
-    console.log("invalid timestamps");
-    alert("Your scheduled end time is equal to or prior to your scheduled start time. Please check times are valid.");
-    }
-
-     database.ref('/volunteer/' + volunteerID).once("value").then(function (data) {
+        database.ref('/volunteer/' + volunteerID).once("value").then(function (data) {
         if (data.val() === null) {
             console.log("No Account exists with this email address");
             alert("No volunteer exists associated with this email address. You need to create a new volunteer before a record can be created.");
-            window.location = "addRecord.html";
-            
+                        
         }
          else {
-             console.log("Account Exists");
-              //addRecord(volunteerName, volunteerID, role, schedTimestampStart, schedTimestampEnd , locAddL1, locAddL2, locDistrict, locPcode);
+            console.log("Account Exists");
+            addRecord(volunteerName, volunteerID, role, schedTimestampStart, schedTimestampEnd, defaultTimestamp, locAddL1, locAddL2, locDistrict, locPcode);
              
-             alert("New record succesfully created. Details are as follows: name = "+ firstname +" "+ lastname + ", email = " + email+ ", role = "+ role + ", scheduleStart = " + schedTimestampStart + ", scheduleEnd" + schedTimestampEnd + ", location address = " + addLoc1Entry + ", " + addLoc2Entry + ", " +locDistrict  + ", " +locPcode);
-            //document.getElementById("loginFeedback").innerHTML = "An account already exists associated with this email address";
+             alert("New record succesfully created. Details are as follows: name = "+ firstname +" "+ lastname + ", email = " + email+ ", role = "+ role + 
+                ", scheduled start = " + time1Parts[0]+":"+time1Parts[1]+":00, "+ date1Parts[2]+"-"+ date1Parts[1]+"-"+ date1Parts[0]+
+                ", scheduled end = " + time2Parts[0]+":"+time2Parts[1]+":00, "+ date2Parts[2]+"-"+ date2Parts[1]+"-"+ date2Parts[0]+ 
+                ", location address = " + locAddL1 + ", " + locAddL2 + ", " +locDistrict  + ", " +locPcode);
+            
          }
         });
+
+    }else{
+    console.log("invalid timestamps");
+    alert("Your scheduled end date/time is equal to or prior to your scheduled start date/time. Please check dates/times are valid.");
+    }
+
+     
 }
 
 
