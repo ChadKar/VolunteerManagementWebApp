@@ -1,20 +1,21 @@
 var config = {
-    apiKey: "AIzaSyAiegKkVjXgfaSXlWtAl30vL3kHDO-zDRE",
-    authDomain: "volunteer-c70c1.firebaseapp.com",
-    databaseURL: "https://volunteer-c70c1.firebaseio.com",
-    projectId: "volunteer-c70c1",
-    storageBucket: "volunteer-c70c1.appspot.com",
-    messagingSenderId: "228261304897"
-  };
+    apiKey: "AIzaSyAefGkmEiYGdjYTspccWr2zA_ilYOwfQxU",
+    authDomain: "volunteer-management-20853.firebaseapp.com",
+    databaseURL: "https://volunteer-management-20853.firebaseio.com",
+    projectId: "volunteer-management-20853",
+    storageBucket: "volunteer-management-20853.appspot.com",
+    messagingSenderId: "574062360222"
+ };
 
 firebase.initializeApp(config);
 var database = firebase.database();
 
-function setButtons(){
-    document.getElementById("add").addEventListener("click", function(){
+var button = document.getElementById("k");
+console.log(button);
 
-    });
-}
+button.addEventListener('click', e=>{
+printDbValues();
+});
 
 
 function logout() {
@@ -152,23 +153,23 @@ function getUserData() {
 
 function printDbValues() {
 	var ref = firebase.database().ref('/manager/');
-
+  var num = -1;
 	ref.once('value', function(snapshot) {
 	  snapshot.forEach(function(childSnapshot) {
 	    var childKey = childSnapshot.key;
 	    var childData = childSnapshot.val();
-	    //$scope.foo[childKey] = childData;
 	    console.log(childData.name + " - " + childData.email );
       var tbody = document.getElementById('tbody');
       var tr = "<tr>";
+      if (num == -1){
+        num = 0;
+          tr += "<th>" + "Name" + "</th>" + "<th>" + "Email" + "</th></tr>";
+          tbody.innerHTML += tr;
+          tr = "<tr>";
+      }
+      tr += "<td>" + childData.name + "</td>" + "<td>" + childData.email + "</td></tr>";
 
-      /* Must not forget the $ sign */
-      tr += "<td>" + childData.name + "</td>" + "<td>$" + childData.email + "</td></tr>";
-      console.log("ajkdjaksjdkasjd");
-
-      /* We add the table row to the table body */
       tbody.innerHTML += tr;
-      window.location = "available.html";
 
 	  });
 	});
