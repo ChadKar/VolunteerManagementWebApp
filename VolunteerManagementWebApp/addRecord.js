@@ -92,7 +92,7 @@ function checkRecordFields() {
 }
 
 function getRecordParameters() {
-    console.log("getParameters called");
+    console.log("getRecordParameters called");
     var firstname = document.getElementById("firstNameEntry").value.trim();
     var lastname = document.getElementById("lastNameEntry").value.trim();
     var email = document.getElementById("emailEntry").value.trim();
@@ -107,10 +107,10 @@ function getRecordParameters() {
     var locPcode = document.getElementById("locPcodeEntry").value.trim();
     
     console.log(firstname + "," + lastname + ", " + email+ ", "+ role + ", " + schedDateStart + ", " + schedTimeStart+", "+ schedDateEnd+", "+ schedTimeEnd + "," + locAddL1 + ", " + locAddL2 + ", " +locDistrict  + ", " +locPcode);
-   // checkUserExists();
+    checkUserExists();
 }
 
-function addRecord(volunteerName, username, role, schedStart, schedEnd, locAddL1, locAddL2, locDistrict, locPcode) {
+function addRecord(volunteerName, username, role, schedTimestampStart, schedTimestampEnd, locAddL1, locAddL2, locDistrict, locPcode) {
     var recordStatus = "incomplete";
     var creationTime = new Date().getTime();
     var signIn = null;
@@ -151,60 +151,64 @@ function checkUserExists() {
     var lastname = document.getElementById("lastNameEntry").value.trim();
     var email = document.getElementById("emailEntry").value.trim();
     var role = document.getElementById("roleEntry").value.trim();
-    var schedStart = document.getElementById("schedStartEntry").value.trim();
-    var schedEnd = document.getElementById("schedEndEntry").value.trim();
+    var schedDateStart = document.getElementById("schedDateStartEntry").value.trim();
+    var schedTimeStart = document.getElementById("schedTimeStartEntry").value.trim();
+    var schedDateEnd = document.getElementById("schedDateEndEntry").value.trim();
+    var schedTimeEnd = document.getElementById("schedTimeEndEntry").value.trim();
     var locAddL1 = document.getElementById("addLoc1Entry").value.trim();
     var locAddL2 = document.getElementById("addLoc2Entry").value.trim();
     var locDistrict = document.getElementById("locDistrictEntry").value.trim();
     var locPcode = document.getElementById("locPcodeEntry").value.trim();
     var volunteerName = firstname + " " + lastname;
-
-
-//Need to calculate timestamps for schedule start and schedul end to put into the code. Do quick check that end timestamp is greater than start timestamp.
-//new Date(year, month, day, hours, minutes, seconds, milliseconds)
-//var dateFromPicker = "2012-10-12";
-// var timeFromPicker = "12:30";
-var dateFromUI = "12-13-2012";
-var timeFromUI = "10:20";
-var dateParts = dateFromUI.split("-");
-var timeParts = timefromUI.split(":");
-
-var date = new Date(dateParts[2], dateParts[0]-1, dateParts[1], timeParts[0], timeParts[1]);
-
-var dateISO = date.toISOString();
-// var dateParts = dateFromPicker.split("-");
-// var timeParts = timeFromPicker.split(":");
-// var localDate = new Date(dateParts[0], dateParts[1]-1, dateParts[2], timeParts[0], timeParts[1]);
-//     var calc = document.getElementById("calc")
-
-// calc.addEventListener("click", function() {
-//     var date = document.getElementById("date").value,
-//         time = document.getElementById("time").value
-    
-//     console.log(new Date(date + " " + time))
-// })
-
-
     var user = email.split("@"), ending = user[1];
     var myStr = ending;
     var newStr = myStr.replace(".", "~");
-    var username = user[0] + "@" + newStr;
-    console.log("This is true username: " + username);
-    
-     database.ref('/volunteer/' + username).once("value").then(function (data) {
+    var volunteerID = user[0] + "@" + newStr;
+    console.log("This is true volunteerID: " + volunteerID);
+
+    //Need to calculate timestamps for schedule start and schedul end to put into the code. Do quick check that end timestamp is greater than start timestamp.
+    //Getting timestamp1:
+    var date1Parts = schedDateStart.split("-");//[0] = 2019, [1] = 02, [2] = 02
+    var time1Parts = schedTimeStart.split(":");//[0] = 22, [1] = 00
+    //new Date(year, month, day, hours, minutes, seconds) e.g. var date = new Date(2016, 6, 27, 13, 30, 0);
+    var sStartDateObject = new Date(date1Parts[0], date1Parts[1], date1Parts[2], time1Parts[0], time1Parts[1], 0);
+    var schedTimestampStart = sStartDateObject.getTime();
+
+    //Getting timestamp2:
+    var date2Parts = schedDateEnd.split("-");//[0] = 2019, [1] = 02, [2] = 02
+    var time2Parts = schedTimeEnd.split(":");//[0] = 22, [1] = 00
+    //new Date(year, month, day, hours, minutes, seconds) e.g. var date = new Date(2016, 6, 27, 13, 30, 0);
+    var sEndDateObject = new Date(date2Parts[0], date2Parts[1], date2Parts[2], time2Parts[0], time2Parts[1], 0);
+    var schedTimestampEnd = sEndDateObject.getTime();  
+
+    if(schedTimestampEnd>schedTimestampStart){
+        console.log("Correct timestamps.");
+
+
+
+
+    }else{
+    console.log("invalid timestamps");
+    alert("Your scheduled end time is equal to or prior to your scheduled start time. Please check times are valid.");
+    }
+
+     database.ref('/volunteer/' + volunteerID).once("value").then(function (data) {
         if (data.val() === null) {
             console.log("No Account exists with this email address");
-            alert("No account exists associated with this email address. You need to create a new volunteer before a record can be created.");
+            alert("No volunteer exists associated with this email address. You need to create a new volunteer before a record can be created.");
             window.location = "addRecord.html";
             
         }
          else {
              console.log("Account Exists");
-              addRecord(volunteerName, username, role, schedStart, schedEnd, locAddL1, locAddL2, locDistrict, locPcode);
+              //addRecord(volunteerName, volunteerID, role, schedTimestampStart, schedTimestampEnd , locAddL1, locAddL2, locDistrict, locPcode);
              
-             alert("New record succesfully created. Details are as follows: name = "+ firstname +" "+ lastname + ", email = " + email+ ", role = "+ role + ", scheduleStart = " + schedStart + ", scheduleEnd" + schedEnd + ", location address = " + addLoc1Entry + ", " + addLoc2Entry + ", " +locDistrict  + ", " +locPcode);
+             alert("New record succesfully created. Details are as follows: name = "+ firstname +" "+ lastname + ", email = " + email+ ", role = "+ role + ", scheduleStart = " + schedTimestampStart + ", scheduleEnd" + schedTimestampEnd + ", location address = " + addLoc1Entry + ", " + addLoc2Entry + ", " +locDistrict  + ", " +locPcode);
             //document.getElementById("loginFeedback").innerHTML = "An account already exists associated with this email address";
          }
-        })
+        });
 }
+
+
+
     
