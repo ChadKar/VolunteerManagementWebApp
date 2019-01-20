@@ -1,4 +1,18 @@
- var config = {
+  var date;
+  var volunteers;
+  var button;
+  var initialInput;
+  var submitButton;
+  var database;
+   
+  function setup(){
+	  volunteers = null;
+	  button.mousePressed(increaseVolunteers);
+	  initialInput = createInput('date');
+	  submitButton = createButton('submit');
+	  submitButton.mousePressed(submitdate);
+  }
+var config = {
     apiKey: "AIzaSyAefGkmEiYGdjYTspccWr2zA_ilYOwfQxU",
     authDomain: "volunteer-management-20853.firebaseapp.com",
     databaseURL: "https://volunteer-management-20853.firebaseio.com",
