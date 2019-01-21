@@ -61,10 +61,28 @@ function fileValidation(){
                           for(let i = 0; i<lines.length; i++){//4
                           lines[i] = lines[i].replace(/\s/,'')//delete all blanks
                           }
-                          //recent
-                          for(var i = 1;i<lines.length-1;i++){//i = 1,,,...,19 SHOULD add vounteers e.g. row number starting from 1
+                          //Check here for which csv file it is.
+                          var checkCSVtype = lines[0].split(",");
+                          if(checkCSVtype[0] === "FirstName"){
+
+                            getVolunteerParameters();
+
+                      }
+                      alert("Your csv file has successfully been added.")
+                      reader.readAsText(fileUpload.files[0]);
+                  } else {
+                      alert("This browser does not support HTML5.");
+                  }
+              } else {
+                  alert("Please upload a valid CSV file.");
+              }
+}
+function getVolunteerParameters(){
+                      for(var i = 1;i<lines.length-1;i++){//i = 1,,,...,19 SHOULD add vounteers e.g. row number starting from 1
                             var obj = [];
                             var currentline = lines[i].split(",");
+
+
                               for(var j=0;j< currentline.length;j++){//populate a volunteer Array
                                   obj[j] = currentline[j];//going through a line of data
                                 }
@@ -112,19 +130,8 @@ function fileValidation(){
                               console.log("c1 = "+ obj[20]);
 
                               addVolunteer(line1, line2, district, postcode, monday, tuesday, wednesday, thursday, friday, saturday, sunday, dob, email, emName, emPhone, emRelationship, volunteerName, phone, startDate, status);
-                              //result.push(obj);
+                            }
                           }
-
-                      }
-                      alert("Your csv file volunteers have successfully been added.")
-                      reader.readAsText(fileUpload.files[0]);
-                  } else {
-                      alert("This browser does not support HTML5.");
-                  }
-              } else {
-                  alert("Please upload a valid CSV file.");
-              }
-}
 
 
 function addVolunteer(line1, line2, district, postcode, monday, tuesday, wednesday, thursday, friday, saturday, sunday, dob, email, emName, emPhone, emRelationship, volunteerName, phone, startDate, status) {
