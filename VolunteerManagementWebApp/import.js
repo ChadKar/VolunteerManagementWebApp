@@ -116,6 +116,7 @@ function fileValidation(){
                           }
 
                       }
+                      alert("Your csv file volunteers have successfully been added.")
                       reader.readAsText(fileUpload.files[0]);
                   } else {
                       alert("This browser does not support HTML5.");
