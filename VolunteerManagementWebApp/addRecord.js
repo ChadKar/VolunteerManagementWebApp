@@ -200,19 +200,19 @@ function checkUserExists() {
     var date1Parts = schedDateStart.split("-");//[0] = 2019, [1] = 02, [2] = 02
     var time1Parts = schedTimeStart.split(":");//[0] = 22, [1] = 00
     //new Date(year, month, day, hours, minutes, seconds) e.g. var date = new Date(2016, 6, 27, 13, 30, 0);
-    var sStartDateObject = new Date(date1Parts[0], date1Parts[1], date1Parts[2], time1Parts[0], time1Parts[1], 0);
+    var sStartDateObject = new Date(date1Parts[0], date1Parts[1] - 1, date1Parts[2], time1Parts[0], time1Parts[1], 0);
     var schedTimestampStart = sStartDateObject.getTime();
 
     //Getting timestamp2:
     var date2Parts = schedDateEnd.split("-");//[0] = 2019, [1] = 02, [2] = 02
     var time2Parts = schedTimeEnd.split(":");//[0] = 22, [1] = 00
     //new Date(year, month, day, hours, minutes, seconds) e.g. var date = new Date(2016, 6, 27, 13, 30, 0);
-    var sEndDateObject = new Date(date2Parts[0], date2Parts[1], date2Parts[2], time2Parts[0], time2Parts[1], 0);
+    var sEndDateObject = new Date(date2Parts[0], date2Parts[1] - 1, date2Parts[2], time2Parts[0], time2Parts[1], 0);
     var schedTimestampEnd = sEndDateObject.getTime();  
 
     //Getting default timestamp from date of time stamp 2 (for actual start/end times which will be overwritten).
     //new Date(year, month, day, hours, minutes, seconds) e.g. var date = new Date(2016, 6, 27, 13, 30, 0);
-    var defaultDate = new Date(date2Parts[0], date2Parts[1], date2Parts[2], 23, 59, 0);
+    var defaultDate = new Date(date2Parts[0], date2Parts[1] - 1, date2Parts[2], 23, 59, 0);
     var defaultTimestamp = defaultDate.getTime(); 
 
     //Checking valid time range for a record to be made.
