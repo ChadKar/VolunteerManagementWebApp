@@ -110,40 +110,65 @@ function getRecordParameters() {
     checkUserExists();
 }
 
+
+var recordNum;
+
+
 function addRecord(volunteerName, volunteerID, role, schedTimestampStart, schedTimestampEnd, defaultTimestamp, locAddL1, locAddL2, locDistrict, locPcode) {
     var recordStatus = "incomplete";
     var creationTime = new Date().getTime();
     var duration = 0;
-    var recordNum; 
-    // Go to last reference on creation creationTime. Get the key of creationTime.
-    var lastRef = database.ref('/record/').orderByChild('creationTime').limitToLast(1);
-    lastRef.on("value", function(data){
-        var recordObject = data.val();//e.g. {record3: {…}}
-        console.log(recordObject);//{record3: {…}}
-        for(var key in recordObject) {
-            lastRecordNum = parseInt(key.split("d")[1]);//3
-            recordNum = lastRecordNum + 1;//4
-            console.log("recordNum = "+ recordNum+", prev="+ lastRecordNum);//4
-        }
-    })
-    var stringNum = recordNum.toString();
-    var recordID = "record"+stringNum;
 
-    firebase.database().ref('/record/' + recordID).set({
+    var loopValues = [];
+    var lastRecordNum;
+    var recordID;
 
-    creationTime: creationTime,
-    duration: duration,        
-    locationAddress:{locDistrict: locDistrict, locLine1: locAddL1, locLine2: locAddL2, locPostcode: locPcode},
-    name: volunteerName,
-    role: role,
-    scheduleEnd: schedTimestampEnd,
-    scheduleStart: schedTimestampStart,
-    signIn: defaultTimestamp,
-    signOut: defaultTimestamp,
-    status: recordStatus, //"incomplete"
-    volunteerID: volunteerID
-  });
-    console.log("New Record Added");
+    var postData = {
+        creationTime: creationTime,
+        duration: duration,        
+        locationAddress:{locDistrict: locDistrict, locLine1: locAddL1, locLine2: locAddL2, locPostcode: locPcode},
+        name: volunteerName,
+        role: role,
+        scheduleEnd: schedTimestampEnd,
+        scheduleStart: schedTimestampStart,
+        signIn: defaultTimestamp,
+        signOut: defaultTimestamp,
+        status: recordStatus, //"incomplete"
+        volunteerID: volunteerID
+    }
+
+    recordID = "record"+recordNum;
+
+    console.log("recordID = "+ recordID);
+       // Go to last reference on creation creationTime. Get the key of creationTime.
+    // var lastRef = database.ref('/record/').orderByChild('creationTime').limitToLast(1);
+    // lastRef.on("value", function(data){
+    //     console.log("Danielle");
+    //     var recordObject = data.val();//e.g. {record3: {…}}
+    //     console.log("Julian"+recordObject);
+        
+    //     for(var key in recordObject){
+    //         lastRecordNum = parseInt(key.split("d")[1]);//3
+    //         recordNum = lastRecordNum + 1;//4
+    //         console.log("recordNum = "+ recordNum+", prev="+ lastRecordNum);//10 9
+    //         recordID = "record"+recordNum;
+    //         loopValues.push(recordID);
+    //     }
+    //     console.log(recordID); //record11
+    //     //database.ref('/record/'+recordID).set(postData);//creates 100 from 10
+    //    //return loopValues;
+    // });
+    
+    // loopValues.forEach(function(entry) {
+    // console.log(entry);
+    // });
+    
+    //var stringNum = recordNum.toString();
+    //var recordID = "record"+stringNum;
+    //console.log("stringNum = "+stringNum+" recordID= "+recordID);//4 record4
+
+    database.ref('/record/').push(postData);
+    console.log("New Record Added END");
     
 }
 
