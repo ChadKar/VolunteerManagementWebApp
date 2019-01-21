@@ -119,9 +119,9 @@ function addRecord(volunteerName, volunteerID, role, schedTimestampStart, schedT
     var creationTime = new Date().getTime();
     var duration = 0;
 
-    var loopValues = [];
-    var lastRecordNum;
-    var recordID;
+    // var loopValues = [];
+    // var lastRecordNum;
+    // var recordID;
 
     var postData = {
         creationTime: creationTime,
@@ -137,36 +137,10 @@ function addRecord(volunteerName, volunteerID, role, schedTimestampStart, schedT
         volunteerID: volunteerID
     }
 
-    recordID = "record"+recordNum;
+    // recordID = "record"+recordNum;
 
-    console.log("recordID = "+ recordID);
-       // Go to last reference on creation creationTime. Get the key of creationTime.
-    // var lastRef = database.ref('/record/').orderByChild('creationTime').limitToLast(1);
-    // lastRef.on("value", function(data){
-    //     console.log("Danielle");
-    //     var recordObject = data.val();//e.g. {record3: {…}}
-    //     console.log("Julian"+recordObject);
-        
-    //     for(var key in recordObject){
-    //         lastRecordNum = parseInt(key.split("d")[1]);//3
-    //         recordNum = lastRecordNum + 1;//4
-    //         console.log("recordNum = "+ recordNum+", prev="+ lastRecordNum);//10 9
-    //         recordID = "record"+recordNum;
-    //         loopValues.push(recordID);
-    //     }
-    //     console.log(recordID); //record11
-    //     //database.ref('/record/'+recordID).set(postData);//creates 100 from 10
-    //    //return loopValues;
-    // });
-    
-    // loopValues.forEach(function(entry) {
-    // console.log(entry);
-    // });
-    
-    //var stringNum = recordNum.toString();
-    //var recordID = "record"+stringNum;
-    //console.log("stringNum = "+stringNum+" recordID= "+recordID);//4 record4
-
+    // console.log("recordID = "+ recordID);
+     
     database.ref('/record/').push(postData);
     console.log("New Record Added END");
     

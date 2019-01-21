@@ -155,7 +155,7 @@ function addUser(em, birth, usern, namE, pass, ph, addL1, addL2, district, pcode
 function checkUserExists() {
     console.log("CheckUserExists called");
     
-    var firstname = document.getElementById("firstNameEntry").value.trim();
+    var firstname = document.getElementById("firstNameEntry").value.trim();//Array[1]; //for volunteer
     var lastname = document.getElementById("lastNameEntry").value.trim();
     var dob = document.getElementById("dobEntry").value.trim();
     var phone = document.getElementById("phoneEntry").value.trim();
