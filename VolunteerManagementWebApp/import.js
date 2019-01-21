@@ -121,7 +121,7 @@
       //new Date(year, month, day, hours, minutes, seconds) e.g. var date = new Date(2016, 6, 27, 13, 30, 0);
       var startDateObject = new Date(date1Parts[2], date1Parts[1] - 1, date1Parts[0], time1Parts[0], time1Parts[1], 0);
       var schedTimestampStart = startDateObject.getTime();
-      console.log("schedTimeStampStart = "+schedTimestampStart);//correct
+      //console.log("schedTimeStampStart = "+schedTimestampStart);//correct
       var schedDateEnd = obj[6];
       var schedTimeEnd = obj[7];
       var date2Parts = schedDateEnd.split("/");//[0] = 2, [1] = 2, [2] = 2019
@@ -129,18 +129,19 @@
        //new Date(year, month, day, hours, minutes, seconds) e.g. var date = new Date(2016, 6, 27, 13, 30, 0);
       var endDateObject = new Date(date2Parts[2], date2Parts[1] - 1, date2Parts[0], time2Parts[0], time2Parts[1], 0);
       var schedTimestampEnd = endDateObject.getTime(); 
-      console.log("schedTimeStampEnd = "+schedTimestampEnd);//correct
+      //console.log("schedTimeStampEnd = "+schedTimestampEnd);//correct
       //Getting default timestamp from date of schedDateEnd, and default time 23:59:00 PM (for actual start/end times which will be overwritten).
       //new Date(year, month, day, hours, minutes, seconds) e.g. var date = new Date(2019, 6, 27, 23, 59, 0);
       var defaultDate = new Date(date2Parts[2], date2Parts[1] - 1, date2Parts[0], 23, 59, 0);
+      //console.log("defaultDate = "+ defaultDate);
       var defaultTimestamp = defaultDate.getTime(); 
-      console.log("defaultTimestamp = "+ defaultTimeStamp);
+      //console.log("defaultTimestamp = "+ defaultTimestamp);
       //Address
       var locAddL1 = obj[8];
       var locAddL2 = obj[9];
       var locDistrict = obj[10];
       var locPcode = obj[11];
-      console.log("addRecord function called.");                          
+      //console.log("addRecord function called.");                          
       addRecord(volunteerName, volunteerID, role, schedTimestampStart, schedTimestampEnd, defaultTimestamp, locAddL1, locAddL2, locDistrict, locPcode);
     }
   }
@@ -165,7 +166,7 @@
     }
      
     database.ref('/record/').push(postData);
-    console.log("New Record Added END");
+    //console.log("New Record Added END");
     
   }
   //Getting the schedTimestampStart for inserting a record. Didn't work calling to other function but wanted to retain idea as had 2 other similar methods structured this way.
@@ -180,16 +181,6 @@
 
   //   return schedTimestampStart;
   // }
-
-  function getDefaultTimestamp(schedDateEnd){
-
-    //Getting default timestamp from date of schedDateEnd, and default time 23:59:00 PM (for actual start/end times which will be overwritten).
-    var date2Parts = schedDateEnd.split("-");//[0] = 2019, [1] = 02, [2] = 02
-    //new Date(year, month, day, hours, minutes, seconds) e.g. var date = new Date(2019, 6, 27, 23, 59, 0);
-    var defaultDate = new Date(date2Parts[0], date2Parts[1] - 1, date2Parts[2], 23, 59, 0);
-    var defaultTimestamp = defaultDate.getTime(); 
-    return defaultTimestamp;
-  }
 
   function getVolunteerParameters(lines){
     for(var i = 1;i<lines.length-1;i++){//i = 1,,,...,19 SHOULD add vounteers e.g. row number starting from 1
