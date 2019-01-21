@@ -64,11 +64,20 @@ function fileValidation(){
                           //Check here for which csv file it is.
                           var checkCSVtype = lines[0].split(",");
                           if(checkCSVtype[0] === "FirstName"){
+                            
+                            getVolunteerParameters(lines);
+                            alert("Your csv file of volunteer details has successfully been added.");
 
-                            getVolunteerParameters();
+                          }else if(checkCSVtype[0] === "VolunteerID"){
+
+                            getRecordParmeters(lines);
+                            alert("Your csv file of record details has successfully been added.");
+                          }else{
+                            alert("Your csv must either be for record details or volunteer details. Please check uploaded csv has correct format.");
+                          }
 
                       }
-                      alert("Your csv file has successfully been added.")
+                      
                       reader.readAsText(fileUpload.files[0]);
                   } else {
                       alert("This browser does not support HTML5.");
@@ -77,7 +86,15 @@ function fileValidation(){
                   alert("Please upload a valid CSV file.");
               }
 }
-function getVolunteerParameters(){
+
+function getRecordParmeters(lines){
+
+
+}
+
+
+
+function getVolunteerParameters(lines){
                       for(var i = 1;i<lines.length-1;i++){//i = 1,,,...,19 SHOULD add vounteers e.g. row number starting from 1
                             var obj = [];
                             var currentline = lines[i].split(",");
@@ -132,6 +149,9 @@ function getVolunteerParameters(){
                               addVolunteer(line1, line2, district, postcode, monday, tuesday, wednesday, thursday, friday, saturday, sunday, dob, email, emName, emPhone, emRelationship, volunteerName, phone, startDate, status);
                             }
                           }
+function addRecords(){
+  //Will take all parmeters. 
+}
 
 
 function addVolunteer(line1, line2, district, postcode, monday, tuesday, wednesday, thursday, friday, saturday, sunday, dob, email, emName, emPhone, emRelationship, volunteerName, phone, startDate, status) {
