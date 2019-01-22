@@ -147,7 +147,7 @@
   }
   //duplicating method: both should be imported here from database.js file.
   function addRecord(volunteerName, volunteerID, role, schedTimestampStart, schedTimestampEnd, defaultTimestamp, locAddL1, locAddL2, locDistrict, locPcode) {
-    var recordStatus = "incomplete";
+    var recordStatus = "Scheduled";
     var creationTime = new Date().getTime();
     var duration = 0;
 

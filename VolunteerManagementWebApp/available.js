@@ -23,10 +23,10 @@ alert("---1---");
 
 //database.ref('/volunteer/volunteer1@gmail~com').once("value").then(function (data) {
 //database.ref('/availability/'+day).once("value").then(function (data) {
-database.ref('/availability/'+day).once("value").then(function (data) {
+database.ref('/available/'+day).once("value").then(function (data) {
 	
 	console.log("Volunteer available  --" + data.val());
-	alert("Volunteer available  --"+data.val());
+	alert("Volunteer available  --"+ data.val());
 //	alert("available --"+data.val().available.friday);
 //	data.forEach(function(childData){
 //		var key = childData.ket;
