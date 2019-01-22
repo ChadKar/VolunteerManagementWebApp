@@ -17,17 +17,6 @@ function setButtons(){
 }
 
 
-function logout() {
-    event.preventDefault();
-    console.log(localStorage.getItem("user_email"));
-    localStorage.clear();
-    window.location = "login.html";
-}
-
-function goToLogin() {
-    event.preventDefault();
-    window.location = "login.html";
-}
 
 function fileValidation(){
     var fileInput = document.getElementById('inputGroupFile04');
@@ -159,4 +148,3 @@ function addVolunteer(line1, line2, district, postcode, monday, tuesday, wednesd
     });
       console.log("volunteer Added");
   }
-
