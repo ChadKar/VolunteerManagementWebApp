@@ -163,11 +163,11 @@ function printDbValues() {
       var tr = "<tr>";
       if (num == -1){
         num = 0;
-          tr += "<th>" + "Name" + "</th>" + "<th>" + "Email" + "</th></tr>";
+          tr += "<th>" + "Name" + "</th>" + "<th>" + "Email" + "<th>" + "StartTime"+"</th></tr>";
           tbody.innerHTML += tr;
           tr = "<tr>";
       }
-      tr += "<td>" + childData.name + "</td>" + "<td>" + childData.email + "</td></tr>";
+      tr += "<td>" + childData.name + "</td>" + "<td>" + childData.email + "</td>"+ "<td>" + childData.startTime + "</td></tr>";
 
       tbody.innerHTML += tr;
 

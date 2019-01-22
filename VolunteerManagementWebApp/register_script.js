@@ -71,7 +71,7 @@ function checkPasswordEquals() {
         check = true;
         console.log("passwords equal");
         getParameters();
-         //window.location = "available.html";
+         window.location = "available.html";
     }
 }
 
@@ -88,7 +88,7 @@ function getParameters() {
         console.log("FOUND IT YAYYYYYYYY+>    " + data.val().email +"  "+ firstname);
     });//to get the
     printDbValues();
-    //checkUserExists();
+    checkUserExists();
 }
 
 function addUser(namE, pass,email) {// to write in the node 3 children
@@ -103,21 +103,14 @@ function addUser(namE, pass,email) {// to write in the node 3 children
 
 
 function checkUserExists() {
+
     console.log("CheckUserExists called");
 
-    var firstname = document.getElementById("firstNameEntry").value.trim();
-    var lastname = document.getElementById("lastNameEntry").value.trim();
-    var dob = document.getElementById("dobEntry").value.trim();
-    var phone = document.getElementById("phoneEntry").value.trim();
+    var name = document.getElementById("firstNameEntry").value.trim();
+    
     var password = document.getElementById("passwordEntry").value.trim();
-    var addL1 = document.getElementById("addL1Entry").value.trim();
-    var addL2 = document.getElementById("addL2Entry").value.trim();
-    var district = document.getElementById("districtEntry").value.trim();
-    var pcode = document.getElementById("pcodeEntry").value.trim();
-    var emPh = "0579790";//document.getElementById("emPhEntry").value.trim();
-    var emName = document.getElementById("emNameEntry").value.trim();
-    var emRel = document.getElementById("emRelEntry").value.trim();
-    var Name = firstname + " " + lastname;
+    
+    
     var enteredEmail = document.getElementById("regemailEntry").value, user = enteredEmail.split("@"), ending = user[1];
     var myStr = ending;
     var newStr = myStr.replace(".", "~");
@@ -127,25 +120,28 @@ function checkUserExists() {
      database.ref('/manager/' + name).once("value").then(function (data) {
         if (data.val() === null) {
             console.log("No Account exists with this email address");
-            addUser(enteredEmail, dob, username, Name, password, phone, addL1, addL2, district, pcode, emPh, emName, emRel);
+            addUser(enteredEmail, name, password);
             window.location = "available.html";
         }
          else {
              console.log("Account Exists");
              alert("An account already exists associated with this email address");
-            //document.getElementById("loginFeedback").innerHTML = "An account already exists associated with this email address";
+           document.getElementById("loginFeedback").innerHTML = "An account already exists associated with this email address";
          }
         })
 }
 
 
-function getUserData() {
+function getUserData() {//
     "use strict";
     event.preventDefault();
     // get email string into username
-    var enteredEmail = document.getElementById("emailEntry").value, enteredPassword = document.getElementById("passwordEntry").value, user = enteredEmail.split("@"), username = user[0];
+    var enteredEmail = document.getElementById("emailEntry").value, enteredPassword =
+    document.getElementById("passwordEntry").value, user = enteredEmail.split("@"), username = user[0];
     database.ref('/manager/' + name).once("value").then(function (data) {
         console.log(data.value().email);
+
+      
     });
     }
 
