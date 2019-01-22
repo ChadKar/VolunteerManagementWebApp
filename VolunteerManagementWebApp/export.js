@@ -1,3 +1,4 @@
+ var record;
  var config = {
     apiKey: "AIzaSyAefGkmEiYGdjYTspccWr2zA_ilYOwfQxU",
     authDomain: "volunteer-management-20853.firebaseapp.com",
@@ -15,6 +16,28 @@ function setButtons(){
 
     });
 }
+firebase.database().ref('/record/').once('value', function(snap){
+    //console.log(snap.val());
+    record = snap.val();
+    console.log(record);
+    //download_csv(record);
+});
+
+function download_csv(){
+
+      const replacer = (key, value) => value === null ? '' : value ;// specify how you want to handle null values here
+      let obj1 = Object.keys(record)[0];
+      const header = Object.keys(record[obj1]);//Problem
+      console.log(header);
+      let csv = Object.keys(record).map(row => header.map(fieldName => JSON.stringify(record[row][fieldName], replacer)).join(','));
+      csv = csv.join('\r\n');
+      console.log(csv);
+        var hiddenElement = document.createElement('a');
+      hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
+      hiddenElement.target = '_blank';
+      hiddenElement.download = 'records.csv';
+      hiddenElement.click();
+    }
 
 
 function logout() {

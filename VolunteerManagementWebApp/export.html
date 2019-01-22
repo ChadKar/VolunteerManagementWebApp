@@ -105,25 +105,44 @@
         <div id="formDetails">
             
             <div class="form-group row">
-                <label class="register col-sm-4 col-form-label align-right black-color" for="fromDate">From Date:</label>
+                <label class="register col-sm-4 col-form-label align-right black-color" for="lastNameEntry">Volunteer ID:</label>
                 <div class="col-sm-8">
-                    <input class="form-control registerInput" type=date id="fromDate">
+                    <input class="form-control registerInput" type="text" id="volunteerID" >
                 </div>
             </div>
-
-            <div class="form-group row">
-                <label class="register col-sm-4 col-form-label align-right black-color" for="toDate">To Date:</label>
-                <div class="col-sm-8">
-                    <input class="form-control registerInput" type="date" id="toDate">
-                </div>
-            </div>          
+           <div class="form-group row">
+            <label class="register col-sm-4 col-form-label align-right black-color" for="schedDateStartEntry">From Date:</label>
+            <div class="col-sm-8">
+                <input class="form-control registerInput" type=date id="FromDate" >
+            </div>
         </div>
+        <!-- <div class="form-group row">
+            <label class="register col-sm-4 col-form-label align-right black-color" for="schedTimeStartEntry">Time Start:</label>
+            <div class="col-sm-8">
+                <input class="form-control registerInput" type=time id="TimeStart" >
+            </div>
+        </div> -->
+
+        <div class="form-group row">
+            <label class="register col-sm-4 col-form-label align-right black-color" for="schedDateEndEntry">To Date:   </label>
+            <div class="col-sm-8">
+                <input class="form-control registerInput" type=date id="ToDate" >
+            </div>
+        </div>
+
+       <!--  <div class="form-group row">
+            <label class="register col-sm-4 col-form-label align-right black-color" for="schedTimeEndEntry">Time End:</label>
+            <div class="col-sm-8">
+                <input class="form-control registerInput" type=time id="TimeEnd" >
+            </div>
+        
+        </div> -->
         <div id="exportformButton">
             <div class="form-group row">
                 <label class="register col-sm-4 col-form-label align-right black-color"
                        for="toDate"></label>
                 <div class="col-sm-8">
-                    <button title="View records from the database between dates selected" data-toggle="tooltip" data-placement="bottom"  style="width: 100%;" type="submit" class="regformButton btn btn-info"onclick="checkFields()">Get Records</button>
+                   <button id="downloadButton" title="View records from the database between dates selected" data-toggle="tooltip" data-placement="bottom"  style="width: 100%;" type="submit" class="regformButton btn btn-info"onclick="download_csv()">Get Records</button>
                 </div>
             </div>
         </div>
