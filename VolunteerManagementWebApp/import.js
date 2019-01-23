@@ -166,7 +166,8 @@
     }
      
     database.ref('/record/').push(postData);
-    //console.log("New Record Added END");
+    console.log("volunteersCSV added");
+        alert("Your csv file of volunteer schedules has successfully been added.");
     
   }
   //Getting the schedTimestampStart for inserting a record. Didn't work calling to other function but wanted to retain idea as had 2 other similar methods structured this way.
