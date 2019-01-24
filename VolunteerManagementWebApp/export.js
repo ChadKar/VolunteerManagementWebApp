@@ -1,5 +1,4 @@
- var record;
- var config = {
+  var config = {
     apiKey: "AIzaSyAefGkmEiYGdjYTspccWr2zA_ilYOwfQxU",
     authDomain: "volunteer-management-20853.firebaseapp.com",
     databaseURL: "https://volunteer-management-20853.firebaseio.com",
@@ -16,9 +15,10 @@ function setButtons(){
 
     });
 }
-firebase.database().ref('/record/').once('value', function(snap){
+var record;
+database.ref('/record/').once('value', function(snapshot){
     //console.log(snap.val());
-    record = snap.val();
+    record = snapshot.val();
     console.log(record);
     //download_csv(record);
 });

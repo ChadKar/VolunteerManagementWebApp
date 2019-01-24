@@ -30,79 +30,6 @@ function goToLogin() {
     window.location = "login.html";
 }
   
-function checkFields() {
-    var colourbackground = "#d5cdf3";
-    console.log("Clicked register");
-    event.preventDefault();
-    var okay = true;
-    var xxx = document.getElementById("firstNameEntry").value.trim();
-    if(document.getElementById("firstNameEntry").value === "") {
-        document.getElementById("firstNameEntry").style.background = colourbackground;
-        document.getElementById("regFeedback").innerHTML = "Please enter all fields";
-        okay = false;
-    }
-    if(document.getElementById("lastNameEntry").value === "") {
-        document.getElementById("lastNameEntry").style.background = colourbackground;
-         okay = false;
-    }
-    if(document.getElementById("regemailEntry").value === "") {
-        document.getElementById("regemailEntry").style.background = colourbackground;
-         okay = false;
-    }    
-    if(document.getElementById("dobEntry").value === "") {
-        document.getElementById("dobEntry").style.background = colourbackground;
-         okay = false;
-    }
-    if(document.getElementById("phoneEntry").value === "") {
-        document.getElementById("phoneEntry").style.background = colourbackground;
-         okay = false;
-    }
-    if(document.getElementById("addL1Entry").value === "") {
-        document.getElementById("addL1Entry").style.background = colourbackground;
-         okay = false;
-    }
-    if(document.getElementById("addL2Entry").value === "") {
-        document.getElementById("addL2Entry").style.background = colourbackground;
-         okay = false;
-    }
-    if(document.getElementById("districtEntry").value === "") {
-        document.getElementById("districtEntry").style.background = colourbackground;
-         okay = false;
-    }
-    if(document.getElementById("pcodeEntry").value === "") {
-        document.getElementById("pcodeEntry").style.background = colourbackground;
-         okay = false;
-    }
-    if(document.getElementById("emPhEntry").value === "") {
-        document.getElementById("emPhEntry").style.background = colourbackground;
-         okay = false;
-    }
-    if(document.getElementById("emNameEntry").value === "") {
-        document.getElementById("emNameEntry").style.background = colourbackground;
-         okay = false;
-    }
-    if(document.getElementById("emRelEntry").value === "") {
-        document.getElementById("emRelEntry").style.background = colourbackground;
-         okay = false;
-    }
-
-    if(document.getElementById("passwordEntry").value === "") {
-        document.getElementById("passwordEntry").style.background = colourbackground;
-         okay = false;
-    }
-    if(document.getElementById("passwordEntry2").value === "") {
-        document.getElementById("passwordEntry2").style.background = colourbackground;
-         okay = false;
-    }
-    console.log("Print:" + okay);
-    if(okay === true) {
-        console.log("parameters called");
-        checkPasswordEquals();
-    }else if(okay === false){
-        alert("Please check all fields are complete and try again.");
-    }
-   
-}
 
 function checkPasswordEquals() {
     var check = false;
@@ -208,4 +135,78 @@ function getUserData() {
             }
         }
     });
+}
+
+function checkFields() {
+    var colourbackground = "#d5cdf3";
+    console.log("Clicked register");
+    event.preventDefault();
+    var okay = true;
+    var xxx = document.getElementById("firstNameEntry").value.trim();
+    if(document.getElementById("firstNameEntry").value === "") {
+        document.getElementById("firstNameEntry").style.background = colourbackground;
+        document.getElementById("regFeedback").innerHTML = "Please enter all fields";
+        okay = false;
+    }
+    if(document.getElementById("lastNameEntry").value === "") {
+        document.getElementById("lastNameEntry").style.background = colourbackground;
+         okay = false;
+    }
+    if(document.getElementById("regemailEntry").value === "") {
+        document.getElementById("regemailEntry").style.background = colourbackground;
+         okay = false;
+    }    
+    if(document.getElementById("dobEntry").value === "") {
+        document.getElementById("dobEntry").style.background = colourbackground;
+         okay = false;
+    }
+    if(document.getElementById("phoneEntry").value === "") {
+        document.getElementById("phoneEntry").style.background = colourbackground;
+         okay = false;
+    }
+    if(document.getElementById("addL1Entry").value === "") {
+        document.getElementById("addL1Entry").style.background = colourbackground;
+         okay = false;
+    }
+    if(document.getElementById("addL2Entry").value === "") {
+        document.getElementById("addL2Entry").style.background = colourbackground;
+         okay = false;
+    }
+    if(document.getElementById("districtEntry").value === "") {
+        document.getElementById("districtEntry").style.background = colourbackground;
+         okay = false;
+    }
+    if(document.getElementById("pcodeEntry").value === "") {
+        document.getElementById("pcodeEntry").style.background = colourbackground;
+         okay = false;
+    }
+    if(document.getElementById("emPhEntry").value === "") {
+        document.getElementById("emPhEntry").style.background = colourbackground;
+         okay = false;
+    }
+    if(document.getElementById("emNameEntry").value === "") {
+        document.getElementById("emNameEntry").style.background = colourbackground;
+         okay = false;
+    }
+    if(document.getElementById("emRelEntry").value === "") {
+        document.getElementById("emRelEntry").style.background = colourbackground;
+         okay = false;
+    }
+
+    if(document.getElementById("passwordEntry").value === "") {
+        document.getElementById("passwordEntry").style.background = colourbackground;
+         okay = false;
+    }
+    if(document.getElementById("passwordEntry2").value === "") {
+        document.getElementById("passwordEntry2").style.background = colourbackground;
+         okay = false;
+    }
+    console.log("Print:" + okay);
+    if(okay === true) {
+        console.log("parameters called");
+        checkPasswordEquals();
+    }else if(okay === false){
+        alert("Please check all fields are complete and try again.");
+    }
+   
 }
