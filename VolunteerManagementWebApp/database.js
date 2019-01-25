@@ -1,6 +1,6 @@
 //We were unable to successfully export the below code to all pages.
-//Because of this a developer will have to go through every page to change if the database changes. 
-//the database reference.
+//This will become necessary when exporting database methods correctly
+//from this page to other javascript pages.
 //export function callDatabase(){
   var config = {
     apiKey: "AIzaSyAefGkmEiYGdjYTspccWr2zA_ilYOwfQxU",
