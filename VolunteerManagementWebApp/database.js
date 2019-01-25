@@ -1,7 +1,7 @@
 //We were unable to successfully export the below code to all pages.
-//Because of this a developer will have to go through every page to change 
+//Because of this a developer will have to go through every page to change if the database changes. 
 //the database reference.
-export function callDatabase(){
+//export function callDatabase(){
   var config = {
     apiKey: "AIzaSyAefGkmEiYGdjYTspccWr2zA_ilYOwfQxU",
     authDomain: "volunteer-management-20853.firebaseapp.com",
@@ -14,5 +14,5 @@ export function callDatabase(){
   
 firebase.initializeApp(config);
 var database = firebase.database();
-return database;
-}
+// return database;
+// }
