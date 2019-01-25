@@ -1,16 +1,3 @@
- var config = {
-    apiKey: "AIzaSyAefGkmEiYGdjYTspccWr2zA_ilYOwfQxU",
-    authDomain: "volunteer-management-20853.firebaseapp.com",
-    databaseURL: "https://volunteer-management-20853.firebaseio.com",
-    projectId: "volunteer-management-20853",
-    storageBucket: "volunteer-management-20853.appspot.com",
-    messagingSenderId: "574062360222"
- };
-        
-firebase.initializeApp(config);
-var database = firebase.database();
-
-
 function setButtons(){
     document.getElementById("add").addEventListener("click", function(){
 
@@ -145,7 +132,38 @@ function addRecord(volunteerName, volunteerID, role, schedTimestampStart, schedT
     console.log("New Record Added END");
     
 }
-
+//Please note the next three methods have minor changes to format which is why 
+//the same methods in import.js have not been uses. These are labelled 2 as a result.
+//Getting the schedTimestampStart for inserting a record. 
+  function getSchedTimestampStart2(schedDateStart, schedTimeStart){
+    //Need to calculate timestamps for schedule start and schedul end to put into the code. Do quick check that end timestamp is greater than start timestamp.
+    //Getting timestamp1:
+    var date1Parts = schedDateStart.split("-");//[0] = 2019, [1] = 02, [2] = 02
+    var time1Parts = schedTimeStart.split(":");//[0] = 22, [1] = 00
+    //new Date(year, month, day, hours, minutes, seconds) e.g. var date = new Date(2016, 6, 27, 13, 30, 0);
+    var sStartDateObject = new Date(date1Parts[0], date1Parts[1] - 1, date1Parts[2], time1Parts[0], time1Parts[1], 0);
+    var schedTimestampStart = sStartDateObject.getTime();
+    return schedTimestampStart;
+  }
+  //Getting the schedTimestampEnd for inserting a record. 
+  function getSchedTimestampEnd2(schedDateEnd, schedTimeEnd){
+    //Getting timestamp2:
+    var date2Parts = schedDateEnd.split("-");//[0] = 2019, [1] = 02, [2] = 02
+    var time2Parts = schedTimeEnd.split(":");//[0] = 22, [1] = 00
+    //new Date(year, month, day, hours, minutes, seconds) e.g. var date = new Date(2016, 6, 27, 13, 30, 0);
+    var sEndDateObject = new Date(date2Parts[0], date2Parts[1] - 1, date2Parts[2], time2Parts[0], time2Parts[1], 0);
+    var schedTimestampEnd = sEndDateObject.getTime(); 
+    return schedTimestampEnd;
+  }
+  //Getting the defaultTimestamp for inserting a record. 
+  function defaultTimestampEnd2(schedDateEnd){
+    var date2Parts = schedDateEnd.split("-");//[0] = 2, [1] = 2, [2] = 2019   
+    //Getting default timestamp from date of time stamp 2 (for actual start/end times which will be overwritten).
+    //new Date(year, month, day, hours, minutes, seconds) e.g. var date = new Date(2016, 6, 27, 13, 30, 0);
+    var defaultDate = new Date(date2Parts[0], date2Parts[1] - 1, date2Parts[2], 23, 59, 0);
+    var defaultTimestamp = defaultDate.getTime(); 
+    return defaultTimestamp;
+  }
 
 function checkUserExists() {
     console.log("CheckUserExists called");
@@ -163,32 +181,16 @@ function checkUserExists() {
     var locDistrict = document.getElementById("locDistrictEntry").value.trim();
     var locPcode = document.getElementById("locPcodeEntry").value.trim();
     var volunteerName = firstname + " " + lastname;
-    var user = email.split("@"), ending = user[1];
-    var myStr = ending;
-    var newStr = myStr.replace(".", "~");
-    var volunteerID = user[0] + "@" + newStr;
+    var volunteerID = getVolunteerID(email);//method from import.js
     console.log("This is true volunteerID: " + volunteerID);
-
-    //Need to calculate timestamps for schedule start and schedul end to put into the code. Do quick check that end timestamp is greater than start timestamp.
-    //Getting timestamp1:
-    var date1Parts = schedDateStart.split("-");//[0] = 2019, [1] = 02, [2] = 02
-    var time1Parts = schedTimeStart.split(":");//[0] = 22, [1] = 00
-    //new Date(year, month, day, hours, minutes, seconds) e.g. var date = new Date(2016, 6, 27, 13, 30, 0);
-    var sStartDateObject = new Date(date1Parts[0], date1Parts[1] - 1, date1Parts[2], time1Parts[0], time1Parts[1], 0);
-    var schedTimestampStart = sStartDateObject.getTime();
-
-    //Getting timestamp2:
-    var date2Parts = schedDateEnd.split("-");//[0] = 2019, [1] = 02, [2] = 02
-    var time2Parts = schedTimeEnd.split(":");//[0] = 22, [1] = 00
-    //new Date(year, month, day, hours, minutes, seconds) e.g. var date = new Date(2016, 6, 27, 13, 30, 0);
-    var sEndDateObject = new Date(date2Parts[0], date2Parts[1] - 1, date2Parts[2], time2Parts[0], time2Parts[1], 0);
-    var schedTimestampEnd = sEndDateObject.getTime();  
-
-    //Getting default timestamp from date of time stamp 2 (for actual start/end times which will be overwritten).
-    //new Date(year, month, day, hours, minutes, seconds) e.g. var date = new Date(2016, 6, 27, 13, 30, 0);
-    var defaultDate = new Date(date2Parts[0], date2Parts[1] - 1, date2Parts[2], 23, 59, 0);
-    var defaultTimestamp = defaultDate.getTime(); 
-
+    
+  
+    var schedTimestampStart =  getSchedTimestampStart2(schedDateStart, schedTimeStart);
+     console.log(schedTimestampStart );
+    var schedTimestampEnd = getSchedTimestampEnd2(schedDateEnd, schedTimeEnd);
+    console.log(schedTimestampEnd);
+    var defaultTimestamp = defaultTimestampEnd2(schedDateEnd);
+console.log(defaultTimestamp);
     //Checking valid time range for a record to be made.
     if(schedTimestampEnd>schedTimestampStart){
         console.log("Correct timestamps.");
@@ -203,8 +205,8 @@ function checkUserExists() {
             addRecord(volunteerName, volunteerID, role, schedTimestampStart, schedTimestampEnd, defaultTimestamp, locAddL1, locAddL2, locDistrict, locPcode);
              
              alert("New record succesfully created. Details are as follows: name = "+ firstname +" "+ lastname + ", email = " + email+ ", role = "+ role + 
-                ", scheduled start = " + time1Parts[0]+":"+time1Parts[1]+":00, "+ date1Parts[2]+"-"+ date1Parts[1]+"-"+ date1Parts[0]+
-                ", scheduled end = " + time2Parts[0]+":"+time2Parts[1]+":00, "+ date2Parts[2]+"-"+ date2Parts[1]+"-"+ date2Parts[0]+ 
+                ", scheduled start = " + schedDateStart +", "+ schedTimeStart+
+                ", scheduled end = " + schedDateEnd + ", "+ schedTimeEnd +
                 ", location address = " + locAddL1 + ", " + locAddL2 + ", " +locDistrict  + ", " +locPcode);
             
          }
