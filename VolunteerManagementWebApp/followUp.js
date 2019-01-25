@@ -3,7 +3,6 @@
   var button;
   var initialInput;
   var submitButton;
-  var database;
    
   function setup(){
 	  volunteers = null;
@@ -12,24 +11,14 @@
 	  submitButton = createButton('submit');
 	  submitButton.mousePressed(submitdate);
   }
-var config = {
-    apiKey: "AIzaSyAefGkmEiYGdjYTspccWr2zA_ilYOwfQxU",
-    authDomain: "volunteer-management-20853.firebaseapp.com",
-    databaseURL: "https://volunteer-management-20853.firebaseio.com",
-    projectId: "volunteer-management-20853",
-    storageBucket: "volunteer-management-20853.appspot.com",
-    messagingSenderId: "574062360222"
- };
-firebase.initializeApp(config);
-var database = firebase.database();
 
 var ref = database.ref('volunteer');
 ref.on('value',gotData, errData);
-}
+
 
 function gotData(data){
 	 
-	var volunteerListing = selectAll('.volunteerListing');
+	var volunteerListing = selectAll('volunteerListing');
 	for ( var i = 0; i < volunteerListing.length; i++){
 		volunteerListing[i].remove();
 		
