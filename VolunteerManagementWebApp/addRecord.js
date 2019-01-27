@@ -71,31 +71,31 @@ function checkRecordFields() {
     console.log("Print:" + okay);
     if(okay === true) {
         console.log("parameters called");
-        getRecordParameters()
+        checkUserExists();
     }else if(okay === false){
         alert("Please check all fields are complete and try again.");
     }
    
 }
 
-function getRecordParameters() {
-    console.log("getRecordParameters called");
-    var firstname = document.getElementById("firstNameEntry").value.trim();
-    var lastname = document.getElementById("lastNameEntry").value.trim();
-    var email = document.getElementById("emailEntry").value.trim();
-    var role = document.getElementById("roleEntry").value.trim();
-    var schedDateStart = document.getElementById("schedDateStartEntry").value.trim();
-    var schedTimeStart = document.getElementById("schedTimeStartEntry").value.trim();
-    var schedDateEnd = document.getElementById("schedDateEndEntry").value.trim();
-    var schedTimeEnd = document.getElementById("schedTimeEndEntry").value.trim();
-    var locAddL1 = document.getElementById("addLoc1Entry").value.trim();
-    var locAddL2 = document.getElementById("addLoc2Entry").value.trim();
-    var locDistrict = document.getElementById("locDistrictEntry").value.trim();
-    var locPcode = document.getElementById("locPcodeEntry").value.trim();
+// function getRecordParameters() {
+//     console.log("getRecordParameters called");
+//     var firstname = document.getElementById("firstNameEntry").value.trim();
+//     var lastname = document.getElementById("lastNameEntry").value.trim();
+//     var email = document.getElementById("emailEntry").value.trim();
+//     var role = document.getElementById("roleEntry").value.trim();
+//     var schedDateStart = document.getElementById("schedDateStartEntry").value.trim();
+//     var schedTimeStart = document.getElementById("schedTimeStartEntry").value.trim();
+//     var schedDateEnd = document.getElementById("schedDateEndEntry").value.trim();
+//     var schedTimeEnd = document.getElementById("schedTimeEndEntry").value.trim();
+//     var locAddL1 = document.getElementById("addLoc1Entry").value.trim();
+//     var locAddL2 = document.getElementById("addLoc2Entry").value.trim();
+//     var locDistrict = document.getElementById("locDistrictEntry").value.trim();
+//     var locPcode = document.getElementById("locPcodeEntry").value.trim();
     
-    console.log(firstname + "," + lastname + ", " + email+ ", "+ role + ", " + schedDateStart + ", " + schedTimeStart+", "+ schedDateEnd+", "+ schedTimeEnd + "," + locAddL1 + ", " + locAddL2 + ", " +locDistrict  + ", " +locPcode);
-    checkUserExists();
-}
+//     console.log(firstname + "," + lastname + ", " + email+ ", "+ role + ", " + schedDateStart + ", " + schedTimeStart+", "+ schedDateEnd+", "+ schedTimeEnd + "," + locAddL1 + ", " + locAddL2 + ", " +locDistrict  + ", " +locPcode);
+//     checkUserExists();
+// }
 
 
 var recordNum;
